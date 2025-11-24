@@ -1,0 +1,95 @@
+_G.script2Done = true
+_G.Event = true
+
+spawn(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Del-TopBarApp"))()
+end)
+
+spawn(function()
+wait(68)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Noti-Default"))()
+end)
+
+spawn(function()
+wait(68)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Noti-Updater2"))()
+end)
+
+spawn(function()
+    local eventId = game.PlaceId
+    if eventId == 119454325063278 then
+        -- Farming world event
+        getgenv().GDO_FARMING_WORLD = true
+        getgenv().GEVENT_UPGRADES = {
+            "FarmingHugeChance",
+            "FarmingTitanicChance",
+            "FarmingPixelRainbowLuck",
+            "FarmingGoldHatchChance",
+            "FarmingRainbowHatchChance",
+            "FarmingShinyHatchChance"
+        }
+		getgenv().GENCHANTS = {"Lucky Eggs","Lucky Eggs","Lucky Eggs","Huge Hunter","Treasure Hunter","Diamonds"}
+        print("✅ Config: Farming world set")
+
+    elseif eventId == 95635359880599 then
+        -- Fishing event
+        getgenv().GDO_FISHING_EVENT = true
+        getgenv().GUSE_BOOSTS = true
+		getgenv().GENCHANTS = {"Lucky Eggs","Lucky Eggs","Lucky Eggs","Huge Hunter","Treasure Hunter","Diamonds"}
+        print("✅ Config: Fishing event set")
+
+    elseif eventId == 140403681187145 then
+        -- World 4: check _G.Time_Trial_End một lần
+        if _G.Time_Trial_End == true then
+			getgenv().GENCHANTS = {"Criticals","Tap Power","Lucky Eggs","Huge Hunter","Treasure Hunter","Diamonds"}
+			spawn(function()
+        	loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Event-TimeTrial-3"))()
+			end)
+            print("✅ Config: Halloween set (Time_Trial_End)")
+        else
+            warn("⛔ _G.Time_Trial_End chưa true — set Block Party.")
+			getgenv().GENCHANTS = {"Criticals","Criticals","Tap Power","Tap Power","Strong Pets","Strong Pets"}
+			spawn(function()
+			wait(68)
+        	loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Event-TimeTrial-3"))()
+			end)
+        end
+    else
+        warn("⛔ Không phải event được hỗ trợ — không set gì.")
+    end
+end)
+
+--getgenv().GLOOTBOXES = {"Locked Hype Egg", "Deep Sea Treasure Chest"}
+
+getgenv().GPROGRESS_MODE = "Hybrid" -- Hatch
+getgenv().GGFX_MODE = 1
+getgenv().GRANK_TO = 99
+getgenv().GZONE_TO = 299
+getgenv().GREBIRTH_TO = 99
+getgenv().GKICK_ON_STAFF = true
+getgenv().GAUTO_UPGRADE_PETS = false
+getgenv().GHATCH_GOLDEN_EGGS = false
+getgenv().GCLEAR_FAVORITE_PETS = true
+getgenv().GHATCH_SPEED_MS = 0
+getgenv().GMAX_HATCH = 99
+getgenv().GHUGE_COUNT = 15
+
+getgenv().GWAIT_AT_GATES_TILL_RANK = 5
+getgenv().GMAX_EGG_SLOTS = 99
+getgenv().GMAX_EQUIP_SLOTS = 99
+getgenv().GCOMBINE_KEYS = true
+getgenv().GHOLD_GIFTS = false
+getgenv().GHOLD_BUNDLES = false
+getgenv().GCONSUME_SEED_BAGS = true
+getgenv().GOPEN_ITEMS_IN_BULK = true
+getgenv().GMAX_ZONE_UPGRADE_COST = 300000
+getgenv().GCOLLECT_FREE_ITEMS = true
+getgenv().GIGNORE_ALL_INSTANCES = true
+getgenv().GIGNORE_SLEDRACE = false
+getgenv().GDO_DOODLE_BATTLE = true
+getgenv().GUSE_SPRINKLERS = true
+getgenv().GUSE_ULTIMATES = {"UFO", "Tsunami", "Tornado", "Pet Surge", "Chest Spell","Ground Pound"}
+getgenv().GUSE_FLAGS = {"Fortune Flag","Diamonds Flag","Coins Flag"}
+getgenv().GFRUITS = {"Watermelon","Candycane","Apple","Rainbow","Pineapple","Orange","Banana"}
+getgenv().GPOTIONS = {"Coins","Lucky","The Cocktail","Huge","Treasure Hunter","Walkspeed","Diamonds","Damage"}
+getgenv().GPOTIONS_MAX_TIER = 99
