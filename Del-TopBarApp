@@ -1,0 +1,20 @@
+-- Kiểm tra biến toàn cục để xác định script đã chạy hay chưa
+if _G.DELTOPBARAPP then
+    warn("Script đã được chạy trước đó!")
+    return -- Dừng script nếu đã chạy
+end
+
+-- Đánh dấu script đã được chạy
+_G.DELTOPBARAPP = true
+
+local CoreGui = game:GetService("CoreGui")
+
+-- Tìm và xoá TopBarApp
+for _, gui in ipairs(CoreGui:GetChildren()) do
+    if gui.Name == "TopBarApp" and gui.ClassName == "Folder" then
+        pcall(function()
+            gui:Destroy()
+            print("Đã xoá:", gui.Name, "-", gui.ClassName)
+        end)
+    end
+end
