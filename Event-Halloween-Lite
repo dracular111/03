@@ -1,0 +1,455 @@
+repeat task.wait() until game:IsLoaded()
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TeleportService = game:GetService("TeleportService")
+local player = Players.LocalPlayer
+repeat task.wait() until not player.PlayerGui:FindFirstChild("__INTRO")
+
+local Network = ReplicatedStorage:WaitForChild("Network")
+local ClientLib = ReplicatedStorage:WaitForChild("Library"):WaitForChild("Client")
+
+local function inHalloweenWorld()
+	local c = workspace:FindFirstChild("__THINGS") and workspace.__THINGS:FindFirstChild("__INSTANCE_CONTAINER")
+	return c and c:FindFirstChild("Active") and c.Active:FindFirstChild("HalloweenWorld")
+end
+repeat task.wait(1) until inHalloweenWorld()
+
+_G.HW = _G.HW or {}
+local HW = _G.HW
+HW.DebugMode       = HW.DebugMode or false
+HW.SwapInterval    = HW.SwapInterval or 1
+HW.ScanDebounce    = HW.ScanDebounce or 0.5
+HW.ClaimInterval   = HW.ClaimInterval or 5
+HW.PlaceEggInterval= HW.PlaceEggInterval or 0.5
+HW.BaseWait        = HW.BaseWait or 0.5
+_G.EggPillarCount  = _G.EggPillarCount or 1
+
+_G.PillarPets            = _G.PillarPets or {}
+_G.PillarScanDone        = _G.PillarScanDone or false
+_G.CurrentPlotId         = _G.CurrentPlotId or nil
+_G.CurrentPlotCFrame     = _G.CurrentPlotCFrame or nil
+_G.PillarTotalRateById   = _G.PillarTotalRateById or {}
+_G.PillarDisplayText     = _G.PillarDisplayText or {}
+_G.CurrentEggPillars     = _G.CurrentEggPillars or {}
+_G.WeakestPillarsFixed   = _G.WeakestPillarsFixed or nil
+_G.TotalRate             = _G.TotalRate or 1
+_G.TeleDone = true
+
+local function trim(s) return (s and s:gsub("^%s*(.-)%s*$", "%1")) or "" end
+local function safeRequire(mod) local ok, res = pcall(function() return require(mod) end) if ok then return res end end
+local function distance(a, b) return (a - b).Magnitude end
+local function parseRateText(text)
+	if not text then return 0 end
+	local s = tostring(text):lower():gsub(",", "")
+	local mult = 1
+	if s:find("k") then mult = 1e3 elseif s:find("m") then mult = 1e6 elseif s:find("b") then mult = 1e9 end
+	local num = tonumber((s:gsub("[^%d%.]", ""))) or 0
+	return num * mult
+end
+
+local function findPlayerPlot()
+	local plotsFolder = workspace:FindFirstChild("__THINGS") and workspace.__THINGS:FindFirstChild("Plots")
+	if not plotsFolder then return nil end
+	for _, plot in pairs(plotsFolder:GetChildren()) do
+		local build = plot:FindFirstChild("Build")
+		if build and build:FindFirstChild("Sign") then
+			local host = build.Sign:FindFirstChild("Host")
+			if host and host:FindFirstChild("SurfaceGui") then
+				local frame = host.SurfaceGui:FindFirstChild("Frame")
+				if frame and frame:FindFirstChild("Title") and string.find(frame.Title.Text or "", player.Name) then
+					return plot
+				end
+			end
+		end
+	end
+end
+
+task.spawn(function()
+	while not _G.CurrentPlotId do
+		local plot = findPlayerPlot()
+		if plot then
+			_G.CurrentPlotId = tonumber(plot.Name)
+			local mainPart = plot:FindFirstChild("Main")
+			if mainPart and mainPart:IsA("BasePart") then
+				_G.CurrentPlotCFrame = mainPart.CFrame
+			end
+			break
+		end
+		task.wait(HW.BaseWait)
+	end
+end)
+
+local debrisFolder
+local pillarsCFrames = {}
+local previousPetCodes = {}
+local DEBRIS_SCAN_LOCK = false
+local MAX_DISTANCE = 3
+
+local function findDebrisFolder()
+	local f = workspace:FindFirstChild("__DEBRIS") or workspace:FindFirstChild("DEBRIS")
+	if f then return f end
+	for _, c in pairs(workspace:GetChildren()) do
+		if type(c.Name) == "string" and string.match(string.lower(c.Name), "debris") then
+			return c
+		end
+	end
+end
+
+local function buildPillarsCFrames(plot)
+	pillarsCFrames = {}
+	local pillarsFolder = plot and plot:FindFirstChild("Interactable") and plot.Interactable:FindFirstChild("Pillars")
+	if not pillarsFolder then return end
+	for _, pillar in pairs(pillarsFolder:GetChildren()) do
+		local baseTrim = pillar:FindFirstChild("BaseTrim")
+		if baseTrim and baseTrim:IsA("BasePart") then
+			local key = tonumber(pillar.Name) or pillar.Name
+			pillarsCFrames[key] = baseTrim.CFrame
+		end
+	end
+end
+
+local function scanDebris()
+	if DEBRIS_SCAN_LOCK then return end
+	DEBRIS_SCAN_LOCK = true
+	_G.PillarPets = {}
+
+	if not debrisFolder then debrisFolder = findDebrisFolder() end
+	if not debrisFolder then DEBRIS_SCAN_LOCK = false return end
+
+	local PetByPillar = {}
+	for _, petFolder in pairs(debrisFolder:GetChildren()) do
+		local rootPart = petFolder:FindFirstChild("RootPart")
+		if rootPart and rootPart:IsA("BasePart") then
+			local petPos = rootPart.Position
+			local nearestName, nearestDist = nil, math.huge
+			for pname, pcf in pairs(pillarsCFrames) do
+				local d = distance(petPos, pcf.Position)
+				if d < nearestDist then nearestDist, nearestName = d, pname end
+			end
+			if nearestName and nearestDist <= MAX_DISTANCE then
+				local displayText, rateText
+				for _, d in ipairs(petFolder:GetDescendants()) do
+					if d:IsA("TextLabel") or d:IsA("TextBox") then
+						if not displayText and string.lower(d.Name):find("displayname") then displayText = d.Text end
+						if not rateText and string.lower(d.Name):find("rate") then rateText = d.Text end
+					elseif d:IsA("Frame") then
+						local dn, rt = d:FindFirstChild("DisplayName"), d:FindFirstChild("Rate")
+						if dn and rt and dn:IsA("TextLabel") and rt:IsA("TextLabel") then
+							displayText = displayText or dn.Text
+							rateText = rateText or rt.Text
+							break
+						end
+					end
+				end
+				if displayText then
+					PetByPillar[nearestName] = PetByPillar[nearestName] or {}
+					table.insert(PetByPillar[nearestName], {
+						Name = displayText,
+						Rate = parseRateText(rateText),
+						CodeName = petFolder.Name
+					})
+				end
+			end
+		end
+	end
+
+	for pid in pairs(pillarsCFrames) do
+		if not PetByPillar[pid] then PetByPillar[pid] = {} end
+	end
+
+	local changed = false
+	for pid, pets in pairs(PetByPillar) do
+		if not _G.CurrentEggPillars[pid] then
+			local codes = {}
+			for _, p in ipairs(pets) do table.insert(codes, p.CodeName) end
+			table.sort(codes)
+			local s = table.concat(codes, ",")
+			if previousPetCodes[pid] ~= s then previousPetCodes[pid] = s changed = true end
+		end
+	end
+
+	if changed or not next(_G.PillarTotalRateById) then
+		_G.PillarPets = PetByPillar
+		_G.PillarTotalRateById = _G.PillarTotalRateById or {}
+		local totalRate = 0
+		for pid, pets in pairs(PetByPillar) do
+			if not _G.CurrentEggPillars[pid] then
+				local sum = 0
+				for _, p in ipairs(pets) do sum = sum + (p.Rate or 0) end
+				_G.PillarTotalRateById[pid] = sum
+				totalRate = totalRate + sum
+			else
+				_G.PillarTotalRateById[pid] = _G.PillarTotalRateById[pid] or 0
+				totalRate = totalRate + (_G.PillarTotalRateById[pid] or 0)
+			end
+		end
+		_G.TotalRate = totalRate
+		_G.PillarDisplayText = {}
+		for pid, pets in pairs(_G.PillarPets) do
+			if not _G.CurrentEggPillars[pid] then
+				if #pets > 0 then
+					local names = {}
+					for _, p in ipairs(pets) do table.insert(names, p.Name) end
+					_G.PillarDisplayText[pid] = ("Pillar %s:\nPet: %s"):format(tostring(pid), table.concat(names, ", "))
+				else
+					_G.PillarDisplayText[pid] = ("Pillar %s:\nPet: (trống)"):format(tostring(pid))
+				end
+			end
+		end
+	end
+	DEBRIS_SCAN_LOCK = false
+	_G.PillarScanDone = true
+end
+
+local scanScheduled = false
+local function scheduleScan()
+	if scanScheduled then return end
+	scanScheduled = true
+	task.spawn(function()
+		task.wait(HW.ScanDebounce)
+		scanScheduled = false
+		scanDebris()
+	end)
+end
+
+task.spawn(function()
+	repeat task.wait(HW.BaseWait) until _G.CurrentPlotId and _G.TeleDone
+	local plotFolder = workspace:WaitForChild("__THINGS"):WaitForChild("Plots")
+	local myPlot = plotFolder:FindFirstChild(tostring(_G.CurrentPlotId))
+	if myPlot then buildPillarsCFrames(myPlot) end
+	debrisFolder = findDebrisFolder()
+	if debrisFolder then
+		debrisFolder.ChildAdded:Connect(scheduleScan)
+		debrisFolder.ChildRemoved:Connect(scheduleScan)
+	end
+	scheduleScan()
+end)
+
+task.spawn(function()
+	local SaveModule = safeRequire(ClientLib.Save)
+	while not SaveModule do task.wait(HW.BaseWait); SaveModule = safeRequire(ClientLib.Save) end
+
+	local function getCandy()
+		local ok, data = pcall(function() return SaveModule.Get() end)
+		if not ok or not data or not data.Inventory or not data.Inventory.Currency then return 0 end
+		for _, v in pairs(data.Inventory.Currency) do
+			if v.id == "HalloweenCoins" then
+				return tonumber(v._am) or 0
+			end
+		end
+		return 0
+	end
+
+	repeat task.wait(HW.BaseWait) until _G.PillarScanDone and _G.TeleDone
+
+	local PURCHASE_THRESHOLD = 99000000
+	local STOP_THRESHOLD     = 9000000
+
+	while true do
+		local candy = getCandy()
+		if candy >= PURCHASE_THRESHOLD then
+			repeat
+				if not _G.CurrentPlotId then break end
+				pcall(function()
+					Network.Plots_Invoke:InvokeServer(_G.CurrentPlotId, "PurchaseEgg", 6, 3)
+				end)
+				task.wait(0.05)
+				candy = getCandy()
+			until candy <= STOP_THRESHOLD
+		else
+			if candy < STOP_THRESHOLD then
+				repeat
+					task.wait(5)
+					candy = getCandy()
+				until candy >= PURCHASE_THRESHOLD
+			else
+				task.wait(0.1)
+			end
+		end
+	end
+end)
+
+task.spawn(function()
+	local SaveModule = safeRequire(ClientLib.Save)
+	while not SaveModule do task.wait(HW.BaseWait); SaveModule = safeRequire(ClientLib.Save) end
+	local eggPriority = {"Clown Egg","Coffin Egg","Reaper Egg"}
+
+	repeat task.wait(HW.BaseWait) until _G.PillarScanDone and _G.TeleDone
+
+	while true do
+		local ok, saveData = pcall(function() return SaveModule.Get() end)
+		if ok and saveData and saveData.Inventory then
+			local eggList = {}
+			for _, v in pairs(saveData.Inventory.EggHalloween or {}) do
+				if v.id then eggList[v.id] = (v._am and v._am > 0) and v._am or 1 end
+			end
+
+			local bestEgg
+			for _, name in ipairs(eggPriority) do
+				if eggList[name] then bestEgg = name; break end
+			end
+
+			if bestEgg then
+				if not _G.WeakestPillarsFixed then
+					local sorted = {}
+					for pid, total in pairs(_G.PillarTotalRateById) do
+						table.insert(sorted, {id = pid, rate = total or 0})
+					end
+					table.sort(sorted, function(a,b) return a.rate < b.rate end)
+
+					local weakest = {}
+					for i = 1, math.min(_G.EggPillarCount, #sorted) do
+						table.insert(weakest, sorted[i].id)
+					end
+					_G.CurrentEggPillars, _G.WeakestPillarsFixed = {}, weakest
+					for _, id in ipairs(weakest) do _G.CurrentEggPillars[id] = true end
+				end
+
+				local weakest = _G.WeakestPillarsFixed or {}
+				if #weakest > 0 then
+					for _, id in ipairs(weakest) do
+						pcall(function() Network.HalloweenWorld_PlaceEgg:InvokeServer(id, bestEgg) end)
+						task.wait(HW.PlaceEggInterval)
+					end
+					for _, id in ipairs(weakest) do
+						pcall(function() Network.HalloweenWorld_PickUp:InvokeServer(id) end)
+						task.wait(HW.BaseWait)
+					end
+				end
+			end
+		end
+		task.wait(HW.BaseWait)
+	end
+end)
+
+local Rank = {
+	["Pumpkin Dog"] = 1, ["Skeleton Snake"] = 2, ["Zombie Pig"] = 3,
+	["Evil Raven"] = 4, ["Witch Wolf"] = 5, ["Mummy Cow"] = 6,
+	["Frankenpup Dog"] = 7, ["Devil Tasmanian"] = 8, ["Shark Cat"] = 9,
+	["Evil Kitsune"] = 10, ["Skelemelon"] = 11, ["Specter Owl"] = 12,
+	["Hacked Reaper"] = 13, ["Spectral Deer"] = 14, ["Vampire Agony"] = 15,
+}
+
+local function getPower(id, pt)
+	return (Rank[id] or 0) + (pt or 0) * 3
+end
+
+local function getBestPet()
+	local ok, data = pcall(function() return safeRequire(ClientLib.Save).Get() end)
+	if not ok or not data or not data.Inventory then return {power=-1}, 0 end
+	local best, count = { power = -1 }, 0
+	for uid, p in pairs(data.Inventory.HPillar or {}) do
+		if p and p.id then
+			count += 1
+			local power = getPower(p.id, p.pt)
+			if power > best.power then
+				best = { uid = uid, id = p.id, pt = p.pt or 0, _am = p._am or 1, power = power }
+			end
+		end
+	end
+	return best, count
+end
+
+local function getPillarPetsFromDisplay()
+	local pillars = {}
+	for name, text in pairs(_G.PillarDisplayText or {}) do
+		local petName = text:match("Pet:%s*(.+)")
+		if petName then
+			petName = trim(petName)
+			local pt = petName:find("Rainbow") and 2 or (petName:find("Golden") or petName:find("⭐") and 1 or 0)
+			petName = petName:gsub("Rainbow ",""):gsub("Golden ",""):gsub("⭐ ",""):gsub("🌈 ","")
+			pillars[name] = { id = petName, pt = pt, power = getPower(petName, pt) }
+		else
+			pillars[name] = { id = "(trống)", pt = 0, power = 0 }
+		end
+	end
+	return pillars
+end
+
+local function isEggPillar(pillarName)
+	if not _G.WeakestPillarsFixed then return false end
+	for _, v in ipairs(_G.WeakestPillarsFixed) do if v == pillarName then return true end end
+	return false
+end
+
+local function placePet(pillarId, newPetUid)
+	if not pillarId or not newPetUid then return false end
+	pcall(function() Network.HalloweenWorld_PickUp:InvokeServer(tonumber(pillarId)) end)
+	task.wait(HW.BaseWait)
+	pcall(function() Network.HalloweenWorld_PlacePet:InvokeServer(tonumber(pillarId), newPetUid) end)
+	return true
+end
+
+task.spawn(function()
+	while not _G.WeakestPillarsFixed do task.wait(HW.BaseWait) end
+	while true do
+		local best = getBestPet()
+		if best and best.id then
+			for pillar, info in pairs(getPillarPetsFromDisplay()) do
+				if not isEggPillar(pillar) and (info.id == "(trống)" or best.power > info.power) then
+					placePet(tonumber(pillar), best.uid)
+					task.wait(HW.BaseWait)
+				end
+			end
+		end
+		task.wait(HW.SwapInterval)
+	end
+end)
+
+task.spawn(function()
+	repeat task.wait(HW.BaseWait) until _G.TotalRate and _G.TeleDone
+	local PlayerSave = require(ReplicatedStorage.Library.Client.Save)
+
+	local function craft(recipeIndex)
+		pcall(function()
+			Network.HalloweenCraftingMachine_StartCraft:InvokeServer("HalloweenPetCraftingMachine", recipeIndex, { shiny = false, pt = 0 })
+		end)
+		task.wait(5)
+	end
+
+	local function claimCraft(id)
+		pcall(function() Network.HalloweenCraftingMachine_Claim:InvokeServer(id) end)
+		task.wait(5)
+	end
+
+	local function getCraftQueue()
+		local data = PlayerSave.Get().HalloweenCraftingQueue or {}
+		local ids = {}
+		for id, v in pairs(data) do
+			if v.Result and v.Result.Data and v.Result.Data.id then table.insert(ids, id) end
+		end
+		return ids
+	end
+
+	while task.wait(5) do
+		for _, id in ipairs(getCraftQueue()) do claimCraft(id) end
+		if (_G.TotalRate or 0) <= 83000 then craft(4) craft(3) craft(2) craft(1) else craft(4) end
+	end
+end)
+
+task.spawn(function()
+	repeat task.wait(HW.BaseWait) until _G.TotalRate and _G.TeleDone
+	local PlayerSave = require(ReplicatedStorage.Library.Client.Save)
+
+	local function getItemId(invType, name)
+		for uid, data in pairs(PlayerSave.Get().Inventory[invType] or {}) do
+			if data.id == name then return uid end
+		end
+	end
+
+	while task.wait(0.5) do
+		local inv = PlayerSave.Get().Inventory
+		local eggHave = false
+		for _, data in pairs(inv.EggHalloween or {}) do
+			if data.id == "Clown Egg" or data.id == "Coffin Egg" then eggHave = true break end
+		end
+		if eggHave then
+			local luckyEggId = getItemId("Consumable", "Halloween Lucky Egg")
+			local trickLuckId = getItemId("Consumable", "Halloween Trick or Treat Luck")
+
+			if luckyEggId then pcall(function() Network.Consumables_Consume:InvokeServer(luckyEggId, 1) end) task.wait(1) end
+			if trickLuckId then pcall(function() Network.Consumables_Consume:InvokeServer(trickLuckId, 1) end) end
+			task.wait(600)
+		end
+	end
+end)
