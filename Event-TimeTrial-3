@@ -1,3 +1,4 @@
+
 if _G.VAR_TIME_TRIAL then
 	warn("⛔ Script đã được chạy trước đó!")
 	return
@@ -83,7 +84,7 @@ local function teleportToRewardLocation()
 	warn("🚶‍♂️ Đang teleport đến vị trí đổi quà...")
 	local hrp = getHumanoidRootPart()
 	if hrp then
-		hrp.CFrame = CFrame.new(-14221, 17.39, 2210)
+		hrp.CFrame = CFrame.new(-14219, 16.24, 2195)
 	end
 end
 
@@ -358,20 +359,20 @@ local function claimReward()
     local currentDay = now.wday
     local currentHour = now.hour
 
-    -- Nếu Thứ 7 trước 23h thì đổi hết, ngược lại chỉ đổi hộp 3
-    local isSaturdayFull = (currentDay == 7) and (currentHour < 23)
+    -- Nếu Thứ 3 trước 23h thì đổi hết, ngược lại chỉ đổi hộp 3
+    local isSaturdayFull = (currentDay == 3) and (currentHour < 23)
 
     -- Tính số lượng từng loại hộp
     local chest3, chest2, chest1 = 0, 0, 0
     if isSaturdayFull then
-        warn("📆 Hôm nay là Thứ 7 (giờ VN) và chưa tới 23h → Đổi hết toàn bộ điểm.")
+        warn("📆 Hôm nay là Thứ 3 (giờ VN) và chưa tới 23h → Đổi hết toàn bộ điểm.")
         chest3 = math.floor(points / 5000)
         points = points - chest3 * 5000
         chest2 = math.floor(points / 3000)
         points = points - chest2 * 3000
         chest1 = math.floor(points / 1000)
     else
-        warn("📆 Chỉ đổi hộp 3 (Thứ 7 sau 23h hoặc không phải Thứ 7 - giờ VN).")
+        warn("📆 Chỉ đổi hộp 3 (Thứ 3 sau 23h hoặc không phải Thứ 3 - giờ VN).")
         chest3 = math.floor(points / 5000)
     end
 
@@ -394,7 +395,7 @@ local function claimReward()
     local function isAtExactRewardPosition()
         local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
         if not hrp then return false end
-        local target = Vector3.new(-14221, 17.39, 2210)
+        local target = Vector3.new(-14219, 16.24, 2195)
         return (hrp.Position - target).Magnitude <= 2
     end
 
@@ -410,11 +411,11 @@ local function claimReward()
                 warn("❌ Lỗi khi đổi hộp " .. chestType .. ": " .. tostring(err))
             end
 
-            task.wait(5)
+            task.wait(3)
             if not isAtExactRewardPosition() then
                 warn("⚠️ Sai vị trí sau khi đổi hộp " .. chestType .. " → teleport lại.")
                 teleportToRewardLocation()
-                task.wait(9)
+                task.wait(3)
                 if not isAtExactRewardPosition() then
                     warn("⛔ Vẫn sai vị trí, bỏ qua kiểm tra lần này.")
                 else
@@ -429,7 +430,7 @@ local function claimReward()
         retry += 1
         warn("🚶‍♂️ Teleport tới vị trí đổi quà (lần " .. retry .. ")...")
         teleportToRewardLocation()
-        task.wait(9)
+        task.wait(3)
         if isAtExactRewardPosition() then
             warn("✅ Vị trí chính xác → bắt đầu đổi quà.")
             break
@@ -447,7 +448,7 @@ local function claimReward()
     claimMultiple(chest2, 2)
     claimMultiple(chest1, 1)
 
-    task.wait(9)
+    task.wait(3)
     teleportToLocation()
 end
 
@@ -461,8 +462,8 @@ local function startAutoClaim()
 
             -- Giờ VN
             local d = os.date("!*t", os.time(os.date("!*t")) + 7 * 3600)
-            local can = (d.wday == 7 and d.hour < 23 and pts >= 1000)
-                    or (d.wday ~= 7 and pts >= 5000)
+            local can = (d.wday == 3 and d.hour < 23 and pts >= 1000)
+                    or (d.wday ~= 3 and pts >= 5000)
 
             if can then
                 warn("🔔 Auto-claim: đủ điều kiện (giờ VN) → chạy claimReward().")
@@ -544,7 +545,6 @@ task.spawn(function()
 		--_G.VAR_STOP_BLOCK_PARTY = false
 		--_G.VAR_START_BLOCK_PARTY = true
 		--loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Event-Block-Party-3"))()
-		--loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Event-Halloween-Lite"))()
 		end)
 
 		warn("⏳ Theo dõi reset DailyRuns...")
@@ -555,7 +555,7 @@ task.spawn(function()
 		--_G.VAR_STOP_BLOCK_PARTY = true
 		--_G.VAR_START_BLOCK_PARTY = false
 		task.wait(5)
-		--game.Players.LocalPlayer:Kick("Heo Reset 23H")
+		game.Players.LocalPlayer:Kick("Reset 23H")
 		task.wait(5)
 		startMonitor12Min()
 	end
