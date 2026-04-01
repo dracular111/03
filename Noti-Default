@@ -60,6 +60,7 @@ local function startGuiDefault()
 	local screenGui = Instance.new("ScreenGui")
 	screenGui.Name = "GuiDefault"
 	screenGui.ResetOnSpawn = false
+	screenGui.DisplayOrder = 999999
 	screenGui.Parent = playerGui
 
 	-- Hàm tạo khu vực (region)
