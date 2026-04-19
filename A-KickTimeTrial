@@ -1,0 +1,32 @@
+-- 🔥 ANTI DUPLICATE (quan trọng) kick het luot time trial
+if _G.TIME_TRIAL_MONITOR then return end
+_G.TIME_TRIAL_MONITOR = true
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local player = Players.LocalPlayer
+local Save = require(ReplicatedStorage.Library.Client.Save)
+
+local function getRunsLeft()
+    local ok, data = pcall(Save.Get)
+    local used = (ok and data and data.TimeTrialStats and data.TimeTrialStats.DailyRuns) or 0
+    return 10 - used
+end
+
+-- 🔥 MONITOR
+task.spawn(function()
+    while true do
+        task.wait(30)
+
+        local left = getRunsLeft()
+        print("Monitor RunsLeft:", left)
+
+        if left <= 0 then
+            warn("❌ Hết lượt → đợi 2 phút rồi kick")
+            task.wait(120)
+            player:Kick("Hết lượt Time Trial → đổi server")
+            return
+        end
+    end
+end)
