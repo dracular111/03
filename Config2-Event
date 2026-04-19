@@ -47,9 +47,9 @@ getgenv().Config =  {
     ["MaxEggSlots"] = 99,
     ["MaxPetSlots"] = 99,
 
-    ["Ignore Hatch"] = false,
+    ["Hatch Eggs"] = true,
     ["Open Diamond Egg"] = "",
     ["Zone Farm Count"] = 4,
-    ["Disable Upgrade"] = false,
+    ["Upgrade"] = false,
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/7585edb9f1f88388774c694157e5542d.lua"))()
