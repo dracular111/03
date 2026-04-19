@@ -25,7 +25,7 @@ task.spawn(function()
         if left <= 0 then
             warn("❌ Hết lượt → đợi 2 phút rồi kick")
             task.wait(120)
-            player:Kick("Hết lượt Time Trial → đổi server")
+            game.Players.LocalPlayer:Kick("Hết lượt Time Trial → đổi server")
             return
         end
     end
