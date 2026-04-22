@@ -47,5 +47,6 @@ getgenv().Config =  {
     ["Zone Farm"] = false,  -- Enable zone farming
     ["Zone Farm Count"] = 4,
     ["Upgrade"] = false,
+    ["Token Boost"] = false,
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/ae895774291a4ad833276f74a2572818.lua"))()
