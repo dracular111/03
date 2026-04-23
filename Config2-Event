@@ -40,7 +40,7 @@ getgenv().Config =  {
         ["Disabled"] = true,
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
     },
-    ["CPU Saver"] = false,
+    ["CPU Saver"] = true,
     ["CPU Saver2"] = false,
     ["Hatch Eggs"] = true,
     ["Open Diamond Egg"] = "",
