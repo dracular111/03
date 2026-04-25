@@ -31,7 +31,7 @@ task.spawn(function()
 
             if getRunsLeft() <= 0 then
                 warn("❌ Xác nhận hết lượt → đợi 2 phút rồi kick")
-                task.wait(120)
+                task.wait(90)
                 game.Players.LocalPlayer:Kick("Hết lượt Time Trial → đổi server")
                 return
             else
