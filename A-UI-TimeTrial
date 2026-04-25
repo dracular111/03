@@ -1,0 +1,163 @@
+if _G.VAR_GUI_COMBINED then
+    warn("⛔ GUI Combined đã chạy rồi!")
+    return
+end
+_G.VAR_GUI_COMBINED = true
+
+-- Services
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local PlayerSave = require(ReplicatedStorage.Library.Client.Save)
+
+-- ================== DATA ==================
+
+local function getSave()
+    local ok, sd = pcall(PlayerSave.Get)
+    if ok then return sd end
+end
+
+local function getDiamonds()
+    local stats = player:FindFirstChild("leaderstats")
+    if stats then
+        local d = stats:FindFirstChild("💎 Diamonds")
+        if d then return d.Value end
+    end
+    return 0
+end
+
+local function getTimeTrialStats()
+    local sd = getSave()
+    return sd and sd.TimeTrialStats or { DailyRuns = 0, Points = 0 }
+end
+
+local function getRunsLeft()
+    local s = getTimeTrialStats()
+    return 10 - (s.DailyRuns or 0)
+end
+
+local function getPoints()
+    local s = getTimeTrialStats()
+    return s.Points or 0
+end
+
+-- Format số
+local function Formatint(int)
+    local Suffix = {"", "k", "M", "B", "T", "Qd", "Qn", "Sx", "Sp", "Oc", "No", "De"}
+    local Index = 1
+    if int < 1000 then return tostring(int) end
+    while int >= 1000 and Index < #Suffix do
+        int /= 1000
+        Index += 1
+    end
+    return string.format("%.2f%s", int, Suffix[Index])
+end
+
+-- ================== GUI ==================
+
+local function startGUI()
+
+    local old = playerGui:FindFirstChild("GuiCombined")
+    if old then old:Destroy() end
+
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "GuiCombined"
+    gui.ResetOnSpawn = false
+    gui.DisplayOrder = 999999
+    gui.Parent = playerGui
+
+    -- MAIN BAR
+    local bar = Instance.new("Frame")
+    bar.AnchorPoint = Vector2.new(0.5, 0)
+    bar.Position = UDim2.new(0.5, 0, 0, -60)
+    bar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    bar.BorderSizePixel = 0
+    bar.AutomaticSize = Enum.AutomaticSize.X
+    bar.Size = UDim2.new(0, 0, 0, 42)
+    bar.Parent = gui
+
+    -- bo góc
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 8)
+    corner.Parent = bar
+
+    -- layout ngang
+    local layout = Instance.new("UIListLayout")
+    layout.FillDirection = Enum.FillDirection.Horizontal
+    layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    layout.VerticalAlignment = Enum.VerticalAlignment.Center
+    layout.Padding = UDim.new(0, 6)
+    layout.Parent = bar
+
+    -- padding trong
+    local padding = Instance.new("UIPadding")
+    padding.PaddingLeft = UDim.new(0, 10)
+    padding.PaddingRight = UDim.new(0, 10)
+    padding.Parent = bar
+
+    -- tạo block
+    local function createBlock(color)
+        local f = Instance.new("Frame")
+        f.BackgroundColor3 = color
+        f.AutomaticSize = Enum.AutomaticSize.X
+        f.Size = UDim2.new(0, 0, 1, 0)
+        f.BorderSizePixel = 0
+
+        local c = Instance.new("UICorner")
+        c.CornerRadius = UDim.new(0, 6)
+        c.Parent = f
+
+        local t = Instance.new("TextLabel")
+        t.BackgroundTransparency = 1
+        t.AutomaticSize = Enum.AutomaticSize.X
+        t.Size = UDim2.new(0, 0, 1, 0)
+        t.Font = Enum.Font.GothamBold
+        t.TextSize = 24
+        t.TextColor3 = Color3.new(1,1,1)
+        t.TextXAlignment = Enum.TextXAlignment.Center
+        t.Parent = f
+
+        f.Parent = bar
+
+        return f, t
+    end
+
+    local gemsFrame, gemsLabel     = createBlock(Color3.fromRGB(0,102,204))
+    local pointsFrame, pointsLabel = createBlock(Color3.fromRGB(255,200,0))
+    local trialFrame, trialLabel   = createBlock(Color3.fromRGB(255,200,0))
+
+    -- ================== LOOP ==================
+
+    while true do
+        pcall(function()
+
+            -- GEMS
+            gemsLabel.Text = "💎 " .. Formatint(getDiamonds())
+
+            -- POINTS
+            pointsLabel.Text = "POINTS " .. Formatint(getPoints())
+            if _G.Time_Trial_Var then
+                pointsFrame.BackgroundColor3 = Color3.fromRGB(0,170,0)
+            else
+                pointsFrame.BackgroundColor3 = Color3.fromRGB(255,200,0)
+            end
+
+            -- TRIAL
+            local runs = getRunsLeft()
+            trialLabel.Text = "TRIAL " .. runs .. "/10"
+
+            if runs == 0 then
+                trialFrame.BackgroundColor3 = Color3.fromRGB(0,170,0)
+            else
+                trialFrame.BackgroundColor3 = Color3.fromRGB(255,200,0)
+            end
+
+        end)
+
+        task.wait(0.3)
+    end
+end
+
+startGUI()
