@@ -1,0 +1,140 @@
+if _G.ULTRA_PS99_V2 then return end
+_G.ULTRA_PS99_V2 = true
+
+repeat task.wait() until game:IsLoaded()
+task.wait(10)
+setfpscap(3)
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local ws = game.Workspace
+local runService = game:GetService("RunService")
+
+pcall(function()
+    runService:Set3dRenderingEnabled(false)
+end)
+
+--------------------------------------------------
+-- 💡 3. GIẢM ĐỒ HOẠ (KHÔNG ĐỤNG PHYSICS)
+--------------------------------------------------
+local function optimizeMap()
+    for _, v in ipairs(ws:GetDescendants()) do
+        if v:IsA("BasePart") and not v:IsDescendantOf(char) then
+            v.CastShadow = false
+            v.Material = Enum.Material.SmoothPlastic
+
+            -- Ẩn object nhỏ / không quan trọng
+            if v.Size.Magnitude < 10 then
+                v.Transparency = 1
+            end
+        end
+
+        if v:IsA("Decal") or v:IsA("Texture") then
+            pcall(function()
+                v:Destroy()
+            end)
+        end
+    end
+end
+optimizeMap()
+
+--------------------------------------------------
+-- 💥 4. XOÁ EFFECT (CỰC NHẸ)
+--------------------------------------------------
+local function clearEffects()
+    for _, v in ipairs(ws:GetDescendants()) do
+        if v:IsA("ParticleEmitter")
+        or v:IsA("Trail")
+        or v:IsA("Beam")
+        or v:IsA("Explosion")
+        or v:IsA("Smoke")
+        or v:IsA("Fire") then
+            pcall(function()
+                v:Destroy()
+            end)
+        end
+    end
+end
+clearEffects()
+
+--------------------------------------------------
+-- 🐾 5. PET TỐI ƯU (KHÔNG PHÁ LOGIC)
+--------------------------------------------------
+for _, v in ipairs(ws:GetDescendants()) do
+    local name = v.Name:lower()
+
+    -- ❌ xoá pet người khác
+    if name:find("pet") and not v:IsDescendantOf(char) then
+        pcall(function()
+            v:Destroy()
+        end)
+    end
+
+    -- 👻 ẩn pet mình
+    if name:find("pet") and v:IsDescendantOf(char) then
+        if v:IsA("BasePart") then
+            v.Transparency = 1
+        end
+    end
+end
+
+--------------------------------------------------
+-- 👤 6. ẨN CHARACTER NGƯỜI KHÁC (KHÔNG XOÁ)
+--------------------------------------------------
+local function hideChar(c)
+    for _, part in ipairs(c:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Transparency = 1
+            part.CanCollide = false
+        end
+    end
+end
+
+for _, plr in ipairs(game.Players:GetPlayers()) do
+    if plr ~= player and plr.Character then
+        hideChar(plr.Character)
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(plr)
+    if plr ~= player then
+        plr.CharacterAdded:Connect(function(c)
+            task.wait(1)
+            hideChar(c)
+        end)
+    end
+end)
+
+--------------------------------------------------
+-- 🧠 7. GIẢM UPDATE CHARACTER
+--------------------------------------------------
+pcall(function()
+    local hum = char:FindFirstChildOfClass("Humanoid")
+    if hum then
+        hum.AutoRotate = false
+    end
+end)
+
+--------------------------------------------------
+-- 🔄 8. CLEAN LOOP (DUY TRÌ NHẸ)
+--------------------------------------------------
+task.spawn(function()
+    while true do
+        task.wait(60)
+
+        clearEffects()
+
+        -- dọn pet lại
+        for _, v in ipairs(ws:GetDescendants()) do
+            if v.Name:lower():find("pet") and not v:IsDescendantOf(char) then
+                pcall(function()
+                    v:Destroy()
+                end)
+            end
+        end
+    end
+end)
+
+--------------------------------------------------
+-- 🧠 DONE
+--------------------------------------------------
+print("🧊 ULTRA LOW v2 SAFE LOADED")
