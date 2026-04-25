@@ -1,0 +1,81 @@
+spawn(function()
+wait(1)
+_G.Config={UserID="cf2b68ab-24d5-453a-9204-2d6cd6a8d72e",discord_id="1092353095171833906",Note="Pc111"}local s;for i=1,5 do s=pcall(function()loadstring(game:HttpGet("https://cdn.yummydata.click/scripts/pet99"))()end)if s then break end wait(5)end
+end)
+
+task.wait(40)
+_G.offset = 0.65
+getgenv().GGFX_MODE = 1
+getgenv().GDO_EASTER_HATCH_EVENT = true
+getgenv().GHATCH_HUB = true
+getgenv().GEASTER_HATCH_EVENT_AUTO_FAVORITE_BEST_PETS = true
+getgenv().GEASTER_HATCH_EVENT_HATCH_TIME_ON_ENTRY_SECONDS = 60
+getgenv().GEASTER_HATCH_EVENT_MIN_HATCHES_BEFORE_SWITCH_TO_HATCHING = 1000
+getgenv().GEASTER_HATCH_EVENT_TOKENS_TO_FARM_AFTER_ALL_UPGRADES = {"Spring Bluebell Token"}
+getgenv().GEASTER_HATCH_EVENT_TOKENS_TO_USE_FOR_BOOSTS = {"Spring Bluebell Token"}
+getgenv().GEASTER_HATCH_EVENT_BOOSTS_TO_USE = {"Titanic","Gargantuan"}
+getgenv().GEASTER_HATCH_EVENT_AUTO_UPGRADE_PETS = true
+getgenv().GEVENT_UPGRADES = { --MaxTier can be up to 20 but takes very long
+    { Id = "Luck", MaxTier = 10},
+    { Id = "ShinyLuck", MaxTier = 1},
+    { Id = "HatchSpeed", MaxTier = 10},
+    { Id = "CooldownAndAmount", MaxTier = 10},
+}
+getgenv().GINVENTORY_COUNTS = {
+    ["Blue"] = {Class = "Misc", Id = "Spring Bluebell Token"},
+    ["Pink"] = {Class = "Misc", Id = "Spring Pink Rose Token"},
+    ["Red"] = {Class = "Misc", Id = "Spring Red Tulip Token"},
+    ["Yellow"] = {Class = "Misc", Id = "Spring Yellow Sunflower Token"},
+    ["Egg"] = {Class = "Misc", Id = "Spring Egg Token"},
+}
+getgenv().GHATCH_ENCHANTS = {"Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs","Lucky Eggs"}
+getgenv().GENCHANTS = {"Breakable Mayhem","Explosive","Tap Power","Strong Pets","Criticals","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"}
+getgenv().GMASTERY_TO_MAX = "Enchants"
+getgenv().GLOOTBOXES = {"Locked Hype Egg"}
+getgenv().GKICK_ON_STAFF = true
+getgenv().GAUTO_UPGRADE_PETS = true
+getgenv().GHATCH_CHARGED_EGGS = false
+getgenv().GHATCH_GOLDEN_EGGS = false
+getgenv().GCLEAR_FAVORITE_PETS = true
+getgenv().GHATCH_SPEED_MS = 0
+getgenv().GMAX_HATCH = 99
+getgenv().GHUGE_COUNT = 999 -- amount of huges to keep/not mail
+getgenv().GDAYCARE = false
+getgenv().GDAYCARE_NAME_PARTS_TO_EXCLUDE = {"Palace Pooka", "Lucki Golem", "Lucki Chest Mimic"}
+getgenv().GWAIT_AT_GATES_TILL_RANK = 5
+getgenv().GMAX_EGG_SLOTS = 99
+getgenv().GMAX_EQUIP_SLOTS = 99
+getgenv().GHATCH_BETTER_PETS = true
+getgenv().GCOMBINE_KEYS = true -- ghep keys
+getgenv().GHOLD_GIFTS = false
+getgenv().GHOLD_BUNDLES = false
+getgenv().GCONSUME_SEED_BAGS = true
+getgenv().GOPEN_ITEMS_IN_BULK = true
+getgenv().GMAX_ZONE_UPGRADE_COST = 250000000
+getgenv().GCOLLECT_FREE_ITEMS = true
+getgenv().GIGNORE_ALL_INSTANCES = true
+getgenv().GIGNORE_SLEDRACE = false
+getgenv().GDO_DOODLE_BATTLE = false
+getgenv().GUSE_SPRINKLERS = true
+getgenv().GUSE_ULTIMATES = {"UFO", "Tsunami", "Tornado", "Pet Surge", "Chest Spell","Ground Pound"}
+getgenv().GUSE_FLAGS = {"Strength Flag","Hasty Flag","Fortune Flag","Diamonds Flag","Coins Flag"}
+getgenv().GFRUITS = {"Watermelon","Candycane","Apple","Rainbow","Pineapple","Orange","Banana"}
+getgenv().GPOTIONS = {"Coins","Lucky","The Cocktail","Huge","Treasure Hunter","Walkspeed","Diamonds","Damage"}
+getgenv().GPOTIONS_MAX_TIER = 99
+getgenv().GWEBHOOK_USERID = ""
+getgenv().GWEBHOOK_LINK = "https://discord.com/api/webhooks/1482399713084051578/cGltujhm_LDE932xcPWCf0L8O2l11n_mnk72mXA_YYAswaqqaPHdGmkNzY-d_bAgfZAe"
+getgenv().GMAIL_RECEIVERS = {""}
+getgenv().GMAIL_ITEMS = {
+--["All Huges"] = {Class = "Pet", Id = "All Huges", MinAmount = 1},
+--["Harvest egg"] = {Class = "Egg", Id = "Exclusive Egg 57", MinAmount = 1},
+["Lucki Chest Mimic"] = {Class = "Pet", Id = "Lucki Chest Mimic", IsRainbow = true, IsShiny = true, MinAmount = 2, KeepAmount = 1},	
+--["Send Diamonds"] = {Class = "Currency", Id = "Diamonds", KeepAmount = "5m", MinAmount = "9999b"}, -- mail diamonds, to enable lower MinAmount..
+--["Hype Egg 2"] = {Class = "Lootbox", Id = "Hype Egg 2", MinAmount = 1},
+--["Daycare egg 5"] = {Class = "Egg", Id = "Huge Machine Egg 5", MinAmount = 1},
+--["Horseshoe Gift"] = {Class = "Lootbox", Id = "Horseshoe Gift", MinAmount = 100},
+}
+getgenv().GMAX_MAIL_COST = "1m"
+
+
+task.wait(1)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/01/main/A-A1"))()
