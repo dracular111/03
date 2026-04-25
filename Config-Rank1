@@ -5,8 +5,6 @@ end)
 _G.script2Done = true
 _G.Event = true
 
-setfpscap(5)
-
 spawn(function()
     local eventId = game.PlaceId
     if eventId == 119454325063278 then
