@@ -1,9 +1,12 @@
 spawn(function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/CPU-LOW2"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/CPU-LOW3"))()
 end)
 
 _G.script2Done = true
 _G.Event = true
+
+task.wait(40)
+_G.offset = 0.65
 
 spawn(function()
     local eventId = game.PlaceId
@@ -50,8 +53,6 @@ spawn(function()
     end
 end)
 
-task.wait(40)
-_G.offset = 0.65
 getgenv().GPROGRESS_MODE = "Hybrid" -- Hatch
 getgenv().GGFX_MODE = 1
 getgenv().GRANK_TO = 99
