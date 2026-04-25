@@ -1,5 +1,4 @@
 setfpscap(5)
-script_key="OsobmfGIimBDBlZkYuqGwbefovvsguhR";
 getgenv().Config =  {
     ["Webhook"] = {
         ["URL"] = "https://discord.com/api/webhooks/1492898815215272137/2XmWneeCL7luulIBLoLBsHI8tzO7fazdanfmkre9aGFsrCq_P3zwRLBQCL03iyCq23HO",
@@ -29,4 +28,4 @@ getgenv().Config =  {
     ["Upgrade"] = false,
     ["Token Boost"] = false,
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/aa27acc3f27fb34d8cbe6bd53d1b7ff4.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Z-Z"))()
