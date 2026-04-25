@@ -1,0 +1,77 @@
+if _G.ULTRA_SAFE then return end
+_G.ULTRA_SAFE = true
+
+repeat task.wait() until game:IsLoaded()
+task.wait(5)
+
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local ws = game.Workspace
+
+--------------------------------------------------
+-- 🎮 GIẢM ĐỒ HOẠ (SAFE)
+--------------------------------------------------
+for _, v in ipairs(ws:GetDescendants()) do
+    if v:IsA("BasePart") and not v:IsDescendantOf(char) then
+        v.CastShadow = false
+        v.Material = Enum.Material.SmoothPlastic
+
+        if v.Size.Magnitude < 8 then
+            v.Transparency = 1
+        end
+    end
+
+    if v:IsA("Decal") or v:IsA("Texture") then
+        v.Transparency = 1 -- ❗ không destroy nữa
+    end
+end
+
+--------------------------------------------------
+-- 💨 TẮT EFFECT (SAFE)
+--------------------------------------------------
+for _, v in ipairs(ws:GetDescendants()) do
+    if v:IsA("ParticleEmitter")
+    or v:IsA("Trail")
+    or v:IsA("Beam") then
+        v.Enabled = false -- ❗ không destroy
+    end
+end
+
+--------------------------------------------------
+-- 🐾 PET (SAFE)
+--------------------------------------------------
+for _, v in ipairs(ws:GetDescendants()) do
+    if v.Name:lower():find("pet") then
+        if v:IsA("BasePart") then
+            v.Transparency = 1 -- ❗ chỉ ẩn
+        end
+    end
+end
+
+--------------------------------------------------
+-- 👤 ẨN NGƯỜI KHÁC
+--------------------------------------------------
+local function hideChar(c)
+    for _, part in ipairs(c:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Transparency = 1
+        end
+    end
+end
+
+for _, plr in ipairs(game.Players:GetPlayers()) do
+    if plr ~= player and plr.Character then
+        hideChar(plr.Character)
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(plr)
+    if plr ~= player then
+        plr.CharacterAdded:Connect(function(c)
+            task.wait(1)
+            hideChar(c)
+        end)
+    end
+end)
+
+print("✅ SAFE FPS BOOST LOADED")
