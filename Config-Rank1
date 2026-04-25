@@ -2,26 +2,11 @@ spawn(function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/CPU-LOW3"))()
 end)
 
-_G.script2Done = true
-_G.Event = true
-
-task.wait(40)
+task.wait(35)
 _G.offset = 0.65
 
 spawn(function()
-    repeat task.wait() until game:IsLoaded()
-    task.wait(1)
-
-    -- 🔥 Setup enchant dùng cho Time Trial
-    getgenv().GENCHANTS = {"Breakable Mayhem","Explosive","Tap Power","Strong Pets","Criticals","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"}
-
-    -- 🔥 Flag nếu script khác cần
-    _G.Time_Trial_Var = true
-
-    -- 🚀 Load Time Trial
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Event-TimeTrial-3"))()
-
-    print("✅ Loaded Time Trial ONLY")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Event-TimeTrial-3"))()
 end)
 
 getgenv().GPROGRESS_MODE = "Hybrid" -- Hatch
@@ -56,6 +41,7 @@ getgenv().GIGNORE_ALL_INSTANCES = true
 getgenv().GIGNORE_SLEDRACE = false
 getgenv().GDO_DOODLE_BATTLE = false
 getgenv().GUSE_SPRINKLERS = true
+getgenv().GENCHANTS = {"Breakable Mayhem","Explosive","Tap Power","Strong Pets","Criticals","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"}
 getgenv().GUSE_ULTIMATES = {"UFO", "Tsunami", "Tornado", "Pet Surge", "Chest Spell","Ground Pound"}
 getgenv().GUSE_FLAGS = {"Fortune Flag","Diamonds Flag","Coins Flag"}
 getgenv().GFRUITS = {"Watermelon","Candycane","Apple","Rainbow","Pineapple","Orange","Banana"}
