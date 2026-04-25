@@ -10,7 +10,7 @@ task.wait(35)
 _G.offset = 0.65
 
 spawn(function()
-task.wait(268)
+task.wait(186)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/Event-TimeTrial-3"))()
 end)
 
