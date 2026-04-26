@@ -18,7 +18,7 @@ getgenv().Config =  {
         ["Only_New_Huges"] = false,
     },
     ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
-    ["Ignore Do Ranks"] = true,
+    ["Ignore Do Ranks"] = false,
     ["Time Trial"] = {
         ["Disabled"] = false,
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
