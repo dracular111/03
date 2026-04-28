@@ -23,7 +23,9 @@ getgenv().Config =  {
     ["Zone Farm"] = false,  -- Enable zone farming
     ["Zone Farm Count"] = 4,  -- Number of zones to farm simultaneously (max 4)
     ["Open Diamond Egg"] = "",  -- Specific diamond egg to open (e.g., "Spring Diamond Egg 100x"), leave empty to disable
-    ["FarmBossChest"] = false,
+    ["FarmBossChest"] = true, -- this will farm the boss chest 
+    ["HatchEggsWhileBreakingChest"] = true, -- this will tp away from the boss chest and it will then open eggs in the mean while
+    ["MinTierBoss"] = 8, -- it will not farm boss chest that are lower then this, so for me only 8 will farm
     ["Token Boost"] = false  -- Automatically add time to token boos
 }
 
