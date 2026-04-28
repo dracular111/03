@@ -26,7 +26,7 @@ getgenv().Config =  {
     ["FarmBossChest"] = true, -- this will farm the boss chest 
     ["HatchEggsWhileBreakingChest"] = true, -- this will tp away from the boss chest and it will then open eggs in the mean while
     ["MinTierBoss"] = 8, -- it will not farm boss chest that are lower then this, so for me only 8 will farm
-    ["Token Boost"] = false  -- Automatically add time to token boos
+    ["Token Boost"] = true  -- Automatically add time to token boos
 }
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/01/main/Z-X"))()
