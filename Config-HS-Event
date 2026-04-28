@@ -15,7 +15,7 @@ getgenv().Config =  {
         ["Only_New_Huges"] = false,
     },
     ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
-    ["CPU Saver"] = false,
+    ["CPU Saver"] = true,
     ["Hatch Eggs"] = true,  -- Enable egg hatching
     ["AutoHatchSelectedEgg"] = 8,
     ["Upgrade"] = true,  -- Automatically purchase egg upgrades when possible
