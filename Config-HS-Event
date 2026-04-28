@@ -1,3 +1,4 @@
+task.wait(5)
 setfpscap(5)
 getgenv().Config =  {
     ["Webhook"] = {
@@ -14,19 +15,14 @@ getgenv().Config =  {
         ["Only_New_Huges"] = false,
     },
     ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
-    ["Ignore Do Ranks"] = true,
-    ["Time Trial"] = {
-        ["Disabled"] = true,
-        ["Open Chest"] = 3, -- 1,2,3 or do false to not open
-    },
     ["CPU Saver"] = true,
     ["CPU Saver2"] = false,
     ["Hatch Eggs"] = true,
-    ["AutoHatchSelectedEgg"] = 2,
+    ["AutoHatchSelectedEgg"] = 8,
     ["Open Diamond Egg"] = "",
     ["Zone Farm"] = false,  -- Enable zone farming
     ["Zone Farm Count"] = 4,
-    ["Upgrade"] = false,
+    ["Upgrade"] = true,
     ["Token Boost"] = false,
 }
 
