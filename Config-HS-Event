@@ -20,7 +20,6 @@ getgenv().Config =  {
     ["Upgrade"] = true,  -- Automatically purchase egg upgrades when possible
     ["Zone Farm"] = false,  -- Enable zone farming
     ["Zone Farm Count"] = 4,  -- Number of zones to farm simultaneously (max 4)
-    ["Open Diamond Egg"] = "",  -- Specific diamond egg to open (e.g., "Spring Diamond Egg 100x"), leave empty to disable
     ["FarmBossChest"] = true,
     ["Token Boost"] = false  -- Automatically add time to token boos
 }
