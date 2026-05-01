@@ -19,7 +19,6 @@ getgenv().Config =  {
     },
     --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
     ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
-    ["Ignore Do Ranks"] = false,
     ["Time Trial"] = {
         ["Disabled"] = false,
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
@@ -30,5 +29,7 @@ getgenv().Config =  {
 
     ["MaxEggSlots"] = 99,
     ["MaxPetSlots"] = 99,
+    ["Ignore Do Ranks"] = true,
+    ["Fast Rankup"] = true,
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
