@@ -24,14 +24,15 @@ getgenv().Config =  {
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
     },
 
-    ["CPU Saver"] = true,
-    ["CPU Saver2"] = false,
+    ["CPU Saver"] = false,
 
-    ["MaxEggSlots"] = 99,
-    ["MaxPetSlots"] = 99,
-    ["Ignore Do Ranks"] = true,
-    ["Fast Rankup"] = false,
-    ["Rank Update Min"] = 1
-    --["Fast Rankup to"] = 20,
+    ["MaxEggSlots"] = 50,
+    ["MaxPetSlots"] = 40,
+
+    ["Ignore Do Ranks"] = false,
+    ["Fast Rankup"] = true,
+
+
+    ["StarterPets"] = true,
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
