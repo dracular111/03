@@ -1,6 +1,3 @@
-spawn(function()
---loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/A-KickTimeTrial"))()
-end)
 setfpscap(5)
 task.wait(20)
 getgenv().Config =  {
@@ -8,7 +5,7 @@ getgenv().Config =  {
         ["URL"] = "https://discord.com/api/webhooks/1492898815215272137/2XmWneeCL7luulIBLoLBsHI8tzO7fazdanfmkre9aGFsrCq_P3zwRLBQCL03iyCq23HO",
         ["Discord Id to ping"] = {""},
         --["Send Normal Huges"] = false,
-        ["Rank Updates"] = "https://discord.com/api/webhooks/1495044087940648992/mXQmLjfAkGIpZQ08cvFkFt1QYbnpKnoBmJCAOHwIXmWls7t2XHXssYYpNGst5-rkcLc7"
+        --["Rank Updates"] = "https://discord.com/api/webhooks/1495044087940648992/mXQmLjfAkGIpZQ08cvFkFt1QYbnpKnoBmJCAOHwIXmWls7t2XHXssYYpNGst5-rkcLc7"
     },
     ["Mail Settings"] = {
         ["User"] = "",
@@ -17,22 +14,19 @@ getgenv().Config =  {
         ["Mailing"] = {},
         ["Only_New_Huges"] = false,
     },
-    --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
-    ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
-    ["Time Trial"] = {
-        ["Disabled"] = false,
-        ["Open Chest"] = 3, -- 1,2,3 or do false to not open
-    },
-
+    ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Lucky Eggs","Treasure Hunter","Lucky Eggs","Lucky Eggs","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
+    --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Strong Pets","Tap Power"},
     ["CPU Saver"] = true,
-
-    ["MaxEggSlots"] = 50,
-    ["MaxPetSlots"] = 40,
-
-    ["Ignore Do Ranks"] = true,
-    ["Fast Rankup"] = false,
-
-
-    ["StarterPets"] = true,
+    ["Hatch Eggs"] = true,  -- Enable egg hatching
+    ["AutoHatchSelectedEgg"] = 8,
+    ["Upgrade"] = true,  -- Automatically purchase egg upgrades when possible
+    ["Zone Farm"] = false,  -- Enable zone farming
+    ["Zone Farm Count"] = 4,  -- Number of zones to farm simultaneously (max 4)
+    ["Open Diamond Egg"] = "",  -- Specific diamond egg to open (e.g., "Spring Diamond Egg 100x"), leave empty to disable
+    ["FarmBossChest"] = true, -- this will farm the boss chest 
+    ["HatchEggsWhileBreakingChest"] = true, -- this will tp away from the boss chest and it will then open eggs in the mean while
+    ["MinTierBoss"] = 8, -- it will not farm boss chest that are lower then this, so for me only 8 will farm
+    ["Token Boost"] = true  -- Automatically add time to token boos
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/01/main/Z-X"))()
