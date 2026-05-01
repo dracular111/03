@@ -1,0 +1,38 @@
+spawn(function()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/A-KickTimeTrial"))()
+end)
+setfpscap(5)
+task.wait(20)
+getgenv().Config =  {
+    ["Webhook"] = {
+        ["URL"] = "https://discord.com/api/webhooks/1492898815215272137/2XmWneeCL7luulIBLoLBsHI8tzO7fazdanfmkre9aGFsrCq_P3zwRLBQCL03iyCq23HO",
+        ["Discord Id to ping"] = {""},
+        --["Send Normal Huges"] = false,
+        ["Rank Updates"] = "https://discord.com/api/webhooks/1495044087940648992/mXQmLjfAkGIpZQ08cvFkFt1QYbnpKnoBmJCAOHwIXmWls7t2XHXssYYpNGst5-rkcLc7"
+    },
+    ["Mail Settings"] = {
+        ["User"] = "",
+        ["Min_Gems"] = 99999999999999999999,
+        ["MAX_MAIL_COST"] = 9999999999,
+        ["Mailing"] = {},
+        ["Only_New_Huges"] = false,
+    },
+    --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
+    ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
+    ["Time Trial"] = {
+        ["Disabled"] = false,
+        ["Open Chest"] = 3, -- 1,2,3 or do false to not open
+    },
+
+    ["CPU Saver"] = true,
+
+    ["MaxEggSlots"] = 50,
+    ["MaxPetSlots"] = 40,
+
+    ["Ignore Do Ranks"] = true,
+    ["Fast Rankup"] = false,
+
+
+    ["StarterPets"] = true,
+}
+loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
