@@ -30,7 +30,7 @@ getgenv().Config =  {
     ["MaxPetSlots"] = 40,
 
     ["Ignore Do Ranks"] = true,
-    ["Fast Rankup"] = true,
+    ["Fast Rankup"] = false,
 
 
     ["StarterPets"] = true,
