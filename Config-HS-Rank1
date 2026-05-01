@@ -1,5 +1,5 @@
 spawn(function()
---loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/A-KickTimeTrial"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/A-KickTimeTrial"))()
 end)
 setfpscap(5)
 task.wait(20)
@@ -7,7 +7,7 @@ getgenv().Config =  {
     ["Webhook"] = {
         ["URL"] = "https://discord.com/api/webhooks/1492898815215272137/2XmWneeCL7luulIBLoLBsHI8tzO7fazdanfmkre9aGFsrCq_P3zwRLBQCL03iyCq23HO",
         ["Discord Id to ping"] = {""},
-        --["Send Normal Huges"] = false,
+        ["Send Normal Huges"] = false,
         ["Rank Updates"] = "https://discord.com/api/webhooks/1495044087940648992/mXQmLjfAkGIpZQ08cvFkFt1QYbnpKnoBmJCAOHwIXmWls7t2XHXssYYpNGst5-rkcLc7"
     },
     ["Mail Settings"] = {
@@ -19,20 +19,23 @@ getgenv().Config =  {
     },
     --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
     ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
+    --["Auto Enchant"] = {"Treasure Hunter", "Coins", "Diamonds", "Criticals", "Strong Pets"},
     ["Time Trial"] = {
-        ["Disabled"] = false,
+        ["Disabled"] = false, -- will disable Timetrial
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
     },
 
-    ["CPU Saver"] = true,
+    ["CPU Saver"] = true, -- makes your game run smoother
 
     ["MaxEggSlots"] = 50,
     ["MaxPetSlots"] = 40,
 
-    ["Ignore Do Ranks"] = true,
-    ["Fast Rankup"] = false,
+    ["Ignore Do Ranks"] = true, -- wont do quest at all
+
+    ["Fast Rankup"] = false, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
+    ["Fast Rankup to"] = 20, -- choose your rank you want to do
 
 
-    ["StarterPets"] = true,
+    ["StarterPets"] = false, -- will hatch event pets
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
