@@ -29,7 +29,7 @@ getgenv().Config =  {
     ["MaxEggSlots"] = 50,
     ["MaxPetSlots"] = 40,
 
-    ["Ignore Do Ranks"] = false,
+    ["Ignore Do Ranks"] = true,
     ["Fast Rankup"] = true,
 
 
