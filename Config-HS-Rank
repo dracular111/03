@@ -48,6 +48,7 @@ getgenv().Config =  {
     ["OpenPresent"] = false, -- 1 = small, 2 = Medium, 3 = Large, 4 = X-Large, 5 = Titanic, false = disabled
 
     ["AutoConsumeFlag"] = {"Strength Flag","Hasty Flag"},
+    ["AutoSprinkler"] = true,
     ["StarterPets"] = false, -- will hatch event pets
 }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/cd6279ef22ef689bec5cd78c7cd2f0a1.lua"))()
