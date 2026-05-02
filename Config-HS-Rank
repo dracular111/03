@@ -23,7 +23,7 @@ getgenv().Config =  {
     ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
     --["Auto Enchant"] = {"Treasure Hunter", "Coins", "Diamonds", "Criticals", "Strong Pets"},
     ["Time Trial"] = {
-        ["Disabled"] = false, -- will disable Timetrial
+        ["Disabled"] = true, -- will disable Timetrial
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
     },
 
