@@ -9,6 +9,7 @@ getgenv().Config =  {
         ["Discord Id to ping"] = {""},
         ["Send Normal Huges"] = false,
         ["Rank Updates"] = "https://discord.com/api/webhooks/1495044087940648992/mXQmLjfAkGIpZQ08cvFkFt1QYbnpKnoBmJCAOHwIXmWls7t2XHXssYYpNGst5-rkcLc7"
+        ["Admin Abuse"] = "https://discord.com/api/webhooks/1500142793291731084/HVScTPT-3_i30VRzl1YroHb91yhWKUAFdm_jWcd9-RPGjTKX_vdmQ8XJXg--vhJiueWQ" -- send when something gets claimed
     },
     ["Mail Settings"] = {
         ["User"] = "",
@@ -30,10 +31,10 @@ getgenv().Config =  {
     ["MaxEggSlots"] = 50,
     ["MaxPetSlots"] = 40,
 
-    ["Ignore Do Ranks"] = true, -- wont do quest at all
+    ["Ignore Do Ranks"] = false, -- wont do quest at all
 
     ["Fast Rankup"] = false, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
-    ["Fast Rankup to"] = 20, -- choose your rank you want to do
+    ["Fast Rankup to"] = 99, -- choose your rank you want to do
 
 
     ["StarterPets"] = false, -- will hatch event pets
