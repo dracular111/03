@@ -14,7 +14,7 @@ getgenv().Config =  {
         ["Mailing"] = {},
         ["Only_New_Huges"] = false,
     },
-    ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Lucky Eggs","Treasure Hunter","Lucky Eggs","Lucky Eggs","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
+    ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Lucky Eggs","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
     --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Strong Pets","Tap Power"},
     ["CPU Saver"] = true,
     ["Hatch Eggs"] = true,  -- Enable egg hatching
