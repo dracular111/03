@@ -47,7 +47,7 @@ getgenv().Config =  {
     ["MaxCombineTier"] = 4, -- 1 = max Medium, 2 = max Large, 3 = max X-Large, 4 = max Titanic (default, craft everything)
     ["OpenPresent"] = false, -- 1 = small, 2 = Medium, 3 = Large, 4 = X-Large, 5 = Titanic, false = disabled
 
-    ["AutoConsumeFlag"] = {"Strength Flag","Hasty Flag"},
+    ["AutoConsumeFlag"] = {"Strength Flag","Hasty Flag","Fortune Flag","Diamonds Flag","Coins Flag"},
     ["AutoSprinkler"] = true,
     ["StarterPets"] = false, -- will hatch event pets
 }
