@@ -2,7 +2,7 @@ spawn(function()
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/A-KickTimeTrial"))()
 end)
 setfpscap(5)
-task.wait(10)
+task.wait(5)
 getgenv().Config =  {
     ["Webhook"] = {
         ["URL"] = "https://discord.com/api/webhooks/1492898815215272137/2XmWneeCL7luulIBLoLBsHI8tzO7fazdanfmkre9aGFsrCq_P3zwRLBQCL03iyCq23HO",
