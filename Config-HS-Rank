@@ -42,6 +42,9 @@ getgenv().Config =  {
     ["Fast Rankup"] = false, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
     ["Fast Rankup to"] = 99, -- choose your rank you want to do
 
+    ["ClaimFreeStuff"] = false, -- disables claiming stuff loop (may fix stuck on upgrading stuff)
+    ["AutoCombinePresents"] = true, -- combines Prestes to the desired level
+    ["MaxCombineTier"] = 4, -- 1 = max Medium, 2 = max Large, 3 = max X-Large, 4 = max Titanic (default, craft everything)
 
     ["StarterPets"] = false, -- will hatch event pets
 }
