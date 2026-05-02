@@ -29,8 +29,8 @@ getgenv().Config =  {
 
     ["CPU Saver"] = true, -- makes your game run smoother
 
-    ["MaxEggSlots"] = 50,
-    ["MaxPetSlots"] = 40,
+    ["MaxEggSlots"] = 99,
+    ["MaxPetSlots"] = 99,
 
     ["Ignore Do Ranks"] = false, -- wont do quest at all
 
