@@ -21,14 +21,17 @@ getgenv().Config =  {
         ["User"] = "",
         ["Min_Gems"] = 99999999999999999999,
         ["MAX_MAIL_COST"] = 9999999999,
-        ["Mailing"] = {},
-        ["Only_New_Huges"] = false,
+        ["Mailing"] = {
+            ["Spring Pink Rose Token"] = {Class = "Misc", MinAmount = 30000},
+            --["All Huges"] = {Class = "Pet", MinAmount = 10000000},
+        },
+        ["Send Old Huges"] = false,
     },
     ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Diamonds","Tap Power","Strong Pets","Tap Power"},
     --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
     --["Auto Enchant"] = {"Treasure Hunter", "Coins", "Diamonds", "Criticals", "Strong Pets"},
     ["Time Trial"] = {
-        ["Disabled"] = true, -- will disable Timetrial
+        ["Disabled"] = true, -- will disable Timetriall
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
     },
 
@@ -40,12 +43,12 @@ getgenv().Config =  {
     ["Ignore Do Ranks"] = false, -- wont do quest at all
 
     ["Fast Rankup"] = false, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
-    ["Fast Rankup to"] = 99, -- choose your rank you want to do
+    ["Fast Rankup to"] = 20, -- choose your rank you want to do
 
     ["ClaimFreeStuff"] = false, -- disables claiming stuff loop (may fix stuck on upgrading stuff)
     ["AutoCombinePresents"] = true, -- combines Prestes to the desired level
     ["MaxCombineTier"] = 4, -- 1 = max Medium, 2 = max Large, 3 = max X-Large, 4 = max Titanic (default, craft everything)
-    ["OpenPresent"] = false, -- 1 = small, 2 = Medium, 3 = Large, 4 = X-Large, 5 = Titanic, false = disabled
+    ["OpenPresent"] = 5, -- 1 = small, 2 = Medium, 3 = Large, 4 = X-Large, 5 = Titanic, false = disabled
 
     ["AutoConsumeFlag"] = {"Strength Flag","Hasty Flag","Fortune Flag","Diamonds Flag","Coins Flag"},
     ["AutoSprinkler"] = true,
