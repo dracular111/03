@@ -43,7 +43,7 @@ getgenv().Config =  {
     ["Ignore Do Ranks"] = false, -- wont do quest at all
 
     ["Fast Rankup"] = false, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
-    ["Fast Rankup to"] = 11, -- choose your rank you want to do
+    ["Fast Rankup to"] = 20, -- choose your rank you want to do
 
     ["ClaimFreeStuff"] = false, -- disables claiming stuff loop (may fix stuck on upgrading stuff)
     ["AutoCombinePresents"] = true, -- combines Prestes to the desired level
