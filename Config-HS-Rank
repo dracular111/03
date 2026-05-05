@@ -23,7 +23,7 @@ getgenv().Config =  {
         ["Send Normal Huges"] = false,
         ["Rank Updates"] = "https://discord.com/api/webhooks/1495044087940648992/mXQmLjfAkGIpZQ08cvFkFt1QYbnpKnoBmJCAOHwIXmWls7t2XHXssYYpNGst5-rkcLc7",
         ["Rank Update Min"] = 5, -- will send rank update when reaches that ranl
-        TitanicPresentWebhook"] = "https://discord.com/api/webhooks/1500142793291731084/HVScTPT-3_i30VRzl1YroHb91yhWKUAFdm_jWcd9-RPGjTKX_vdmQ8XJXg--vhJiueWQ",
+        ["TitanicPresentWebhook"] = "https://discord.com/api/webhooks/1500142793291731084/HVScTPT-3_i30VRzl1YroHb91yhWKUAFdm_jWcd9-RPGjTKX_vdmQ8XJXg--vhJiueWQ",
     },
     ["Mail Settings"] = {
         ["User"] = "",
