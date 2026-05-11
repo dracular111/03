@@ -78,28 +78,3 @@ task.spawn(function()
         Online.Text = string.format("%02d:%02d:%02d", h, m, s)
     end
 end)
-
--- Auto kick nếu map đứng quá lâu
-task.spawn(function()
-    local LOADING_TIMEOUT = 1200
-    local lastActivity = tick()
-
-    workspace.DescendantAdded:Connect(function()
-        lastActivity = tick()
-    end)
-
-    workspace.DescendantRemoving:Connect(function()
-        lastActivity = tick()
-    end)
-
-    while task.wait(1) do
-        local idle = tick() - lastActivity
-
-        if idle >= LOADING_TIMEOUT then
-            warn("Map đứng quá lâu -> Rejoin")
-
-            game.Players.LocalPlayer:Kick("KillMap")
-            break
-        end
-    end
-end)
