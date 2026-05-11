@@ -81,7 +81,7 @@ end)
 
 -- Auto kick nếu map đứng quá lâu
 task.spawn(function()
-    local LOADING_TIMEOUT = 300
+    local LOADING_TIMEOUT = 1200
     local lastActivity = tick()
 
     workspace.DescendantAdded:Connect(function()
