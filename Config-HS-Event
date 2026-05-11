@@ -28,5 +28,3 @@ getgenv().Config =  {
     ["MinTierBoss"] = 8, -- it will not farm boss chest that are lower then this, so for me only 8 will farm
     ["Token Boost"] = true  -- Automatically add time to token boos
 }
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/01/main/Z-X"))()
