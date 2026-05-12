@@ -40,7 +40,7 @@ workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateS
 -- Online Time
 local Online = Instance.new("TextLabel")
 Online.Size = UDim2.new(0, 1200, 0, 120)
-Online.Position = UDim2.new(0.5, -600, 0.33, 0)
+Online.Position = UDim2.new(0.5, -600, 0.31, 0)
 Online.BackgroundTransparency = 1
 Online.TextColor3 = Color3.fromRGB(255, 255, 0)
 Online.Font = Enum.Font.Code
@@ -56,7 +56,7 @@ local Player = Players.LocalPlayer
 
 local Username = Instance.new("TextLabel")
 Username.Size = UDim2.new(0, 1200, 0, 120)
-Username.Position = UDim2.new(0.5, -600, 0.43, 0)
+Username.Position = UDim2.new(0.5, -600, 0.44, 0)
 Username.BackgroundTransparency = 1
 Username.TextColor3 = Color3.fromRGB(255, 255, 0)
 Username.Font = Enum.Font.Code
@@ -70,7 +70,7 @@ Username.Parent = ScreenGui
 -- Player Count
 local PlayerCount = Instance.new("TextLabel")
 PlayerCount.Size = UDim2.new(0, 1200, 0, 100)
-PlayerCount.Position = UDim2.new(0.5, -600, 0.52, 0)
+PlayerCount.Position = UDim2.new(0.5, -600, 0.58, 0)
 PlayerCount.BackgroundTransparency = 1
 PlayerCount.TextColor3 = Color3.fromRGB(255, 255, 0)
 PlayerCount.Font = Enum.Font.Code
