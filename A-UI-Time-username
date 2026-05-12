@@ -11,7 +11,6 @@ end)
 task.wait(5)
 
 local CoreGui = game:GetService("CoreGui")
-local Players = game:GetService("Players")
 
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "FPS_UI"
@@ -22,12 +21,10 @@ ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 ScreenGui.DisplayOrder = 999999999
 
 -- Auto Scale UI
-local UIScale = Instance.new("UIScale")
-UIScale.Parent = ScreenGui
+local UIScale = Instance.new("UIScale", ScreenGui)
 
 local function updateScale()
     local cam = workspace.CurrentCamera
-
     if cam then
         UIScale.Scale = (cam.ViewportSize.Y / 1080) * 1.6
     end
@@ -40,7 +37,7 @@ workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateS
 -- Online Time
 local Online = Instance.new("TextLabel")
 Online.Size = UDim2.new(0, 1200, 0, 120)
-Online.Position = UDim2.new(0.5, -600, 0.31, 0)
+Online.Position = UDim2.new(0.5, -600, 0.35, 0)
 Online.BackgroundTransparency = 1
 Online.TextColor3 = Color3.fromRGB(255, 255, 0)
 Online.Font = Enum.Font.Code
@@ -52,11 +49,11 @@ Online.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 Online.Parent = ScreenGui
 
 -- Username
-local Player = Players.LocalPlayer
+local Player = game:GetService("Players").LocalPlayer
 
 local Username = Instance.new("TextLabel")
 Username.Size = UDim2.new(0, 1200, 0, 120)
-Username.Position = UDim2.new(0.5, -600, 0.44, 0)
+Username.Position = UDim2.new(0.5, -600, 0.45, 0)
 Username.BackgroundTransparency = 1
 Username.TextColor3 = Color3.fromRGB(255, 255, 0)
 Username.Font = Enum.Font.Code
@@ -66,20 +63,6 @@ Username.TextXAlignment = Enum.TextXAlignment.Center
 Username.TextStrokeTransparency = 0.3
 Username.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 Username.Parent = ScreenGui
-
--- Player Count
-local PlayerCount = Instance.new("TextLabel")
-PlayerCount.Size = UDim2.new(0, 1200, 0, 100)
-PlayerCount.Position = UDim2.new(0.5, -600, 0.58, 0)
-PlayerCount.BackgroundTransparency = 1
-PlayerCount.TextColor3 = Color3.fromRGB(255, 255, 0)
-PlayerCount.Font = Enum.Font.Code
-PlayerCount.TextSize = 85
-PlayerCount.Text = "Players: 0"
-PlayerCount.TextXAlignment = Enum.TextXAlignment.Center
-PlayerCount.TextStrokeTransparency = 0.3
-PlayerCount.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-PlayerCount.Parent = ScreenGui
 
 -- Online Counter
 local startTime = os.time()
@@ -93,24 +76,5 @@ task.spawn(function()
         local s = elapsed % 60
 
         Online.Text = string.format("%02d:%02d:%02d", h, m, s)
-    end
-end)
-
--- Player Counter
-local function updatePlayers()
-    local count = #Players:GetPlayers() - 1
-
-    if count < 0 then
-        count = 0
-    end
-
-    PlayerCount.Text = "Players: " .. tostring(count)
-end
-
-updatePlayers()
-
-task.spawn(function()
-    while task.wait(60) do
-        updatePlayers()
     end
 end)
