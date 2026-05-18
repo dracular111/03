@@ -1,0 +1,103 @@
+-- Detect 4 dòng "No Quest" trong vòng 5 giây
+-- Nếu phát hiện -> hop server
+-- Nếu hop thất bại 5 lần (mỗi lần cách 2s) -> kick
+
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+
+local Player = Players.LocalPlayer
+local PlaceId = game.PlaceId
+
+local CHECK_DURATION = 5
+local MAX_HOP_TRIES = 5
+
+local hopping = false
+
+local function HopServer()
+    if hopping then
+        return
+    end
+
+    hopping = true
+
+    local tries = 0
+
+    while tries < MAX_HOP_TRIES do
+        tries += 1
+
+        local success, result = pcall(function()
+            return HttpService:JSONDecode(
+                game:HttpGet(
+                    "https://games.roblox.com/v1/games/" ..
+                    PlaceId ..
+                    "/servers/Public?sortOrder=Asc&limit=100&excludeFullServers=true"
+                )
+            )
+        end)
+
+        if success and result and result.data then
+            local servers = {}
+
+            for _, server in pairs(result.data) do
+                if server.id ~= game.JobId
+                and server.playing < server.maxPlayers then
+                    table.insert(servers, server.id)
+                end
+            end
+
+            if #servers > 0 then
+                local randomServer = servers[math.random(1, #servers)]
+
+                pcall(function()
+                    TeleportService:TeleportToPlaceInstance(
+                        PlaceId,
+                        randomServer,
+                        Player
+                    )
+                end)
+            end
+        end
+
+        task.wait(2)
+    end
+
+    Player:Kick("No Quest detected | Hop failed")
+end
+
+spawn(function()
+
+    local startTime = tick()
+
+    while task.wait(1) do
+
+        local noQuestCount = 0
+
+        for _, v in pairs(game:GetService("CoreGui"):GetDescendants()) do
+            if v:IsA("TextLabel") then
+                local txt = tostring(v.Text)
+
+                if txt == "No Quest" then
+                    noQuestCount += 1
+                end
+            end
+        end
+
+        print("No Quest Count:", noQuestCount)
+
+        -- đủ 4 dòng No Quest
+        if noQuestCount >= 1 then
+
+            -- tồn tại liên tục trong 5 giây
+            if tick() - startTime >= CHECK_DURATION then
+                warn("4 No Quest detected -> Hop Server")
+                HopServer()
+                break
+            end
+
+        else
+            -- reset timer nếu mất No Quest
+            startTime = tick()
+        end
+    end
+end)
