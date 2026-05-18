@@ -35,9 +35,9 @@ getgenv().Config =  {
         },
         ["Send Old Huges"] = false,
     },
-    ["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Diamonds","Tap Power","Strong Pets","Tap Power"},
+    --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Treasure Hunter","Lucky Eggs","Diamonds","Tap Power","Strong Pets","Tap Power"},
     --["Auto Enchant"] = {"Breakable Mayhem","Tap Power","Strong Pets","Criticals","Explosive","Tap Power","Tap Power","Tap Power","Treasure Hunter","Lucky Eggs","Tap Power","Strong Pets","Tap Power"},
-    --["Auto Enchant"] = {"Treasure Hunter", "Coins", "Diamonds", "Criticals", "Strong Pets"},
+    ["Auto Enchant"] = {"Treasure Hunter", "Coins", "Diamonds", "Criticals", "Strong Pets"},
     ["Time Trial"] = {
         ["Disabled"] = true, -- will disable Timetriall
         ["Open Chest"] = 3, -- 1,2,3 or do false to not open
@@ -45,13 +45,13 @@ getgenv().Config =  {
 
     ["CPU Saver"] = true, -- makes your game run smoother
 
-    ["MaxEggSlots"] = 99,
-    ["MaxPetSlots"] = 99,
+    ["MaxEggSlots"] = 50,
+    ["MaxPetSlots"] = 40,
 
     ["Ignore Do Ranks"] = false, -- wont do quest at all
 
-    ["Fast Rankup"] = false, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
-    ["Fast Rankup to"] = 20, -- choose your rank you want to do
+    ["Fast Rankup"] = true, -- will focus on quest in world 1 until it reaches a specific rank (broken a bit)
+    ["Fast Rankup to"] = 11, -- choose your rank you want to do
 
     ["ClaimFreeStuff"] = false, -- disables claiming stuff loop (may fix stuck on upgrading stuff)
     ["AutoCombinePresents"] = true, -- combines Prestes to the desired level
