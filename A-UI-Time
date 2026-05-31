@@ -142,7 +142,7 @@ task.spawn(function()
         end
     end)
 
-    Notice.Text = "LOCK FPS: " .. TARGET_FPS .. " (ACTIVE)"
+    Notice.Text = "LOCK FPS: " .. TARGET_FPS .. "✅"
 end)
 
 -- ✅ Auto kick nếu map đứng thật sự (không activity)
