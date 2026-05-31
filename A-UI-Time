@@ -48,7 +48,7 @@ Label.BackgroundTransparency = 1
 Label.TextColor3 = Color3.fromRGB(255, 255, 0)
 Label.Font = Enum.Font.Code
 Label.TextSize = 70
-Label.Text = "FPS"
+Label.Text = "FPS "
 Label.TextXAlignment = Enum.TextXAlignment.Center
 Label.TextStrokeTransparency = 0.4
 Label.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
@@ -111,7 +111,7 @@ ServerPlayers.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 ServerPlayers.Parent = Label
 
 local otherPlayers = math.max(#PlayersService:GetPlayers() - 1, 0)
-ServerPlayers.Text = "Players:" .. tostring(otherPlayers)
+ServerPlayers.Text = "👤 " .. tostring(otherPlayers)
 
 
 local startTime = os.time()
@@ -128,7 +128,7 @@ end)
 task.spawn(function()
     while task.wait(30) do
         local otherPlayers = math.max(#PlayersService:GetPlayers() - 1, 0)
-        ServerPlayers.Text = "👤" .. tostring(otherPlayers)
+        ServerPlayers.Text = "👤 " .. tostring(otherPlayers)
     end
 end)
 
@@ -149,9 +149,9 @@ task.spawn(function()
         if not Label or not Label.Parent then break end
 
         if fpsCapActive then
-            Label.Text = string.format("FPS: %d/%d", fps, TARGET_FPS)
+            Label.Text = string.format("FPS %d/%d", fps, TARGET_FPS)
         else
-            Label.Text = string.format("FPS: %d/...", fps)
+            Label.Text = string.format("FPS %d/...", fps)
         end
     end
 end)
