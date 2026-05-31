@@ -47,7 +47,7 @@ Label.Position = UDim2.new(0.5, -600, 0, -50) -- ✅ Dịch UI lên cao thêm
 Label.BackgroundTransparency = 1
 Label.TextColor3 = Color3.fromRGB(255, 255, 0)
 Label.Font = Enum.Font.Code
-Label.TextSize = 80
+Label.TextSize = 70
 Label.Text = "FPS:00"
 Label.TextXAlignment = Enum.TextXAlignment.Center
 Label.TextStrokeTransparency = 0.4
@@ -89,7 +89,7 @@ Username.Position = UDim2.new(0, 0, 0.70, 0) -- nằm dưới dòng Online
 Username.BackgroundTransparency = 1
 Username.TextColor3 = Color3.fromRGB(255, 255, 0)
 Username.Font = Enum.Font.Code
-Username.TextSize = 80
+Username.TextSize = 70
 Username.Text = "" .. Player.DisplayName
 Username.TextXAlignment = Enum.TextXAlignment.Center
 Username.TextStrokeTransparency = 0.3
@@ -104,7 +104,7 @@ ServerPlayers.Position = UDim2.new(0, 0, 0.85, 0)
 ServerPlayers.BackgroundTransparency = 1
 ServerPlayers.TextColor3 = Color3.fromRGB(255, 255, 0)
 ServerPlayers.Font = Enum.Font.Code
-ServerPlayers.TextSize = 80
+ServerPlayers.TextSize = 70
 ServerPlayers.TextXAlignment = Enum.TextXAlignment.Center
 ServerPlayers.TextStrokeTransparency = 0.3
 ServerPlayers.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
@@ -128,7 +128,7 @@ end)
 task.spawn(function()
     while task.wait(30) do
         local otherPlayers = math.max(#PlayersService:GetPlayers() - 1, 0)
-        ServerPlayers.Text = "👤: " .. tostring(otherPlayers)
+        ServerPlayers.Text = "👤" .. tostring(otherPlayers)
     end
 end)
 
