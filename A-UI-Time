@@ -108,19 +108,13 @@ task.spawn(function()
 end)
 
 -- ✅ GIỮ NGUYÊN MỌI THỨ BÊN DƯỚI
-if setfpscap then pcall(setfpscap, TARGET_FPS) end
-
+-- FPS hiển thị ngay, nhưng chỉ lock sau 4 phút
 local targetDelay = 1 / TARGET_FPS
 local lastTick = tick()
 local fps = 0
 
 getgenv().fps_loop = RunService.RenderStepped:Connect(function(dt)
     fps = math.floor(1 / (dt > 0 and dt or 0.0001))
-    local now = tick()
-    local elapsed = now - lastTick
-    if elapsed < targetDelay then
-        task.wait(targetDelay - elapsed)
-    end
     lastTick = tick()
 end)
 
@@ -131,14 +125,24 @@ task.spawn(function()
     end
 end)
 
-getgenv().fps_thread_stop = false
-getgenv().fps_thread = task.spawn(function()
-    while not getgenv().fps_thread_stop do
-        if setfpscap then
-            pcall(setfpscap, TARGET_FPS)
-        end
-        task.wait(5)
+task.spawn(function()
+    task.wait(240) -- 4 phút
+
+    if setfpscap then
+        pcall(setfpscap, TARGET_FPS)
     end
+
+    getgenv().fps_thread_stop = false
+    getgenv().fps_thread = task.spawn(function()
+        while not getgenv().fps_thread_stop do
+            if setfpscap then
+                pcall(setfpscap, TARGET_FPS)
+            end
+            task.wait(5)
+        end
+    end)
+
+    Notice.Text = "LOCK FPS: " .. TARGET_FPS .. " (ACTIVE)"
 end)
 
 -- ✅ Auto kick nếu map đứng thật sự (không activity)
