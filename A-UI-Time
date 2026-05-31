@@ -126,7 +126,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    task.wait(240) -- 4 phút
+    task.wait(180) -- 4 phút
 
     if setfpscap then
         pcall(setfpscap, TARGET_FPS)
