@@ -60,7 +60,7 @@ Notice.BackgroundTransparency = 1
 Notice.TextColor3 = Color3.fromRGB(255, 255, 0)
 Notice.Font = Enum.Font.Code
 Notice.TextSize = 80
-Notice.Text = "LOCK FPS: WAIT"
+Notice.Visible = false
 Notice.TextXAlignment = Enum.TextXAlignment.Center
 Notice.TextStrokeTransparency = 0.3
 Notice.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
@@ -69,7 +69,7 @@ Notice.Parent = Label
 -- ✅ Online time
 local Online = Instance.new("TextLabel")
 Online.Size = UDim2.new(1, 0, 0, 120)
-Online.Position = UDim2.new(0, 0, 0.40, 0)
+Online.Position = UDim2.new(0, 0, 0.25, 0)
 Online.BackgroundTransparency = 1
 Online.TextColor3 = Color3.fromRGB(255, 255, 0)
 Online.Font = Enum.Font.Code
@@ -85,7 +85,7 @@ local Player = game:GetService("Players").LocalPlayer
 
 local Username = Instance.new("TextLabel")
 Username.Size = UDim2.new(1, 0, 0, 120)
-Username.Position = UDim2.new(0, 0, 0.62, 0) -- nằm dưới dòng Online
+Username.Position = UDim2.new(0, 0, 0.45, 0) -- nằm dưới dòng Online
 Username.BackgroundTransparency = 1
 Username.TextColor3 = Color3.fromRGB(255, 255, 0)
 Username.Font = Enum.Font.Code
@@ -100,7 +100,7 @@ local PlayersService = game:GetService("Players")
 
 local ServerPlayers = Instance.new("TextLabel")
 ServerPlayers.Size = UDim2.new(1, 0, 0, 120)
-ServerPlayers.Position = UDim2.new(0, 0, 0.84, 0)
+ServerPlayers.Position = UDim2.new(0, 0, 0.65, 0)
 ServerPlayers.BackgroundTransparency = 1
 ServerPlayers.TextColor3 = Color3.fromRGB(255, 255, 0)
 ServerPlayers.Font = Enum.Font.Code
@@ -137,6 +137,7 @@ end)
 local targetDelay = 1 / TARGET_FPS
 local lastTick = tick()
 local fps = 0
+local fpsCapActive = false
 
 getgenv().fps_loop = RunService.RenderStepped:Connect(function(dt)
     fps = math.floor(1 / (dt > 0 and dt or 0.0001))
@@ -146,12 +147,19 @@ end)
 task.spawn(function()
     while task.wait(5) do
         if not Label or not Label.Parent then break end
-        Label.Text = "FPS: " .. tostring(fps)
+
+        if fpsCapActive then
+            Label.Text = string.format("FPS: %d/%d", fps, TARGET_FPS)
+        else
+            Label.Text = string.format("FPS: %d/...", fps)
+        end
     end
 end)
 
 task.spawn(function()
     task.wait(180) -- 3 phút
+
+    fpsCapActive = true
 
     if setfpscap then
         pcall(setfpscap, TARGET_FPS)
@@ -167,7 +175,6 @@ task.spawn(function()
         end
     end)
 
-    Notice.Text = "LOCK FPS: " .. TARGET_FPS
 end)
 
 -- ✅ Auto kick nếu map đứng thật sự (không activity)
