@@ -133,7 +133,7 @@ task.spawn(function()
 end)
 
 -- ✅ GIỮ NGUYÊN MỌI THỨ BÊN DƯỚI
--- FPS hiển thị ngay, nhưng chỉ lock sau 4 phút
+-- FPS hiển thị ngay, nhưng chỉ lock sau 2 phút
 local targetDelay = 1 / TARGET_FPS
 local lastTick = tick()
 local fps = 0
@@ -157,7 +157,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    task.wait(180) -- 3 phút
+    task.wait(120) -- 2 phút
 
     fpsCapActive = true
 
