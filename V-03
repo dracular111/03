@@ -35,7 +35,7 @@ UIListLayout.Parent = Frame
 
 -- 🏷 Tiêu đề (chỉ còn 1 dòng)
 local Title = Instance.new("TextLabel")
-Title.Text = "🔁 Auto Script Updater"
+Title.Text = "🔁 Script Updater"
 Title.Font = Enum.Font.SourceSansBold
 Title.TextSize = 16
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
