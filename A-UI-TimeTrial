@@ -1,3 +1,4 @@
+task.wait(30)
 if _G.VAR_GUI_COMBINED then
     warn("⛔ GUI Combined đã chạy rồi!")
     return
