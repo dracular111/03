@@ -69,7 +69,7 @@ Notice.Parent = Label
 -- ✅ Online time
 local Online = Instance.new("TextLabel")
 Online.Size = UDim2.new(1, 0, 0, 120)
-Online.Position = UDim2.new(0, 0, 0.50, 0)
+Online.Position = UDim2.new(0, 0, 0.55, 0)
 Online.BackgroundTransparency = 1
 Online.TextColor3 = Color3.fromRGB(255, 255, 0)
 Online.Font = Enum.Font.Code
