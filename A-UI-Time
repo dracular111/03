@@ -202,3 +202,7 @@ task.spawn(function()
         end
     end
 end)
+
+spawn(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dracular111/03/main/A-UI-TimeTrial"))()
+end)
