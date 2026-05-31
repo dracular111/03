@@ -111,7 +111,7 @@ ServerPlayers.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 ServerPlayers.Parent = Label
 
 local otherPlayers = math.max(#PlayersService:GetPlayers() - 1, 0)
-ServerPlayers.Text = "Players: " .. tostring(otherPlayers)
+ServerPlayers.Text = "Players:" .. tostring(otherPlayers)
 
 
 local startTime = os.time()
