@@ -60,7 +60,7 @@ Notice.BackgroundTransparency = 1
 Notice.TextColor3 = Color3.fromRGB(255, 255, 0)
 Notice.Font = Enum.Font.Code
 Notice.TextSize = 80
-Notice.Text = "LOCK FPS: WAIT"
+Notice.Visible = false
 Notice.TextXAlignment = Enum.TextXAlignment.Center
 Notice.TextStrokeTransparency = 0.3
 Notice.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
@@ -137,6 +137,7 @@ end)
 local targetDelay = 1 / TARGET_FPS
 local lastTick = tick()
 local fps = 0
+local fpsCapActive = false
 
 getgenv().fps_loop = RunService.RenderStepped:Connect(function(dt)
     fps = math.floor(1 / (dt > 0 and dt or 0.0001))
@@ -146,12 +147,19 @@ end)
 task.spawn(function()
     while task.wait(5) do
         if not Label or not Label.Parent then break end
-        Label.Text = "FPS: " .. tostring(fps)
+
+        if fpsCapActive then
+            Label.Text = string.format("FPS: %d/%d", fps, TARGET_FPS)
+        else
+            Label.Text = string.format("FPS: %d/...", fps)
+        end
     end
 end)
 
 task.spawn(function()
     task.wait(180) -- 3 phút
+
+    fpsCapActive = true
 
     if setfpscap then
         pcall(setfpscap, TARGET_FPS)
@@ -167,7 +175,6 @@ task.spawn(function()
         end
     end)
 
-    Notice.Text = "LOCK FPS: " .. TARGET_FPS
 end)
 
 -- ✅ Auto kick nếu map đứng thật sự (không activity)
