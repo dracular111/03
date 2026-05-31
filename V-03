@@ -118,7 +118,7 @@ end
 
 -- 🔁 Theo dõi thay đổi
 task.spawn(function()
-    while task.wait(20) do
+    while task.wait(10) do
         for name, data in pairs(scripts) do
             task.wait(5)
             local newCode, err = fetchCode(data.url)
