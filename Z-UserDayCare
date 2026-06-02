@@ -1,0 +1,48 @@
+repeat task.wait() until game:IsLoaded()
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- CONFIG
+local TARGET_SLOT = 30        -- muốn mở tới bao nhiêu slot
+local MAX_USE = 30           -- tối đa dùng bao nhiêu vé (tránh dùng hết sạch)
+local DELAY = 30              -- delay giữa mỗi lần dùng vé
+
+local daycareCmds = require(ReplicatedStorage.Library.Client.DaycareCmds)
+local useVoucher = ReplicatedStorage:WaitForChild("Network"):WaitForChild("DaycareSlotVoucher_Consume")
+
+local used = 0
+
+while true do
+    local currentSlots = daycareCmds.GetMaxSlots()
+
+    print("📊 Slot hiện tại:", currentSlots)
+
+    -- đạt target → dừng
+    if currentSlots >= TARGET_SLOT then
+        print("✅ Đã đạt target slot:", TARGET_SLOT)
+        break
+    end
+
+    -- vượt giới hạn vé → dừng
+    if used >= MAX_USE then
+        warn("⚠️ Đã dùng tối đa số vé cho phép:", MAX_USE)
+        break
+    end
+
+    -- dùng vé
+    local success, err = pcall(function()
+        return useVoucher:InvokeServer()
+    end)
+
+    if success then
+        used += 1
+        print("🎟 Đã dùng voucher | Tổng đã dùng:", used)
+    else
+        warn("❌ Lỗi khi dùng voucher:", err)
+        break
+    end
+
+    task.wait(DELAY)
+end
+
+print("🔚 Kết thúc auto voucher")
