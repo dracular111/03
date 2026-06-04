@@ -1,0 +1,44 @@
+task.spawn(function()
+    local Net = game:GetService("ReplicatedStorage").Network
+
+    -- Thời gian hoạt động tối đa: 5 phút
+    local START_TIME = tick()
+    local DURATION = 300 -- 300 giây = 5 phút
+
+    -- Đợi game load ổn định
+    task.wait(30)
+
+    -- Nếu đã quá thời gian thì thoát
+    if tick() - START_TIME >= DURATION then
+        return
+    end
+
+    -- Claim nhiều lần lúc mới vào
+    for i = 1, 5 do
+        if tick() - START_TIME >= DURATION then
+            return
+        end
+
+        pcall(function()
+            local r = Net["Mailbox: Claim All"]:InvokeServer()
+            print("Claim", i, r)
+        end)
+
+        task.wait(2)
+    end
+
+    -- Sau đó claim định kỳ
+    while tick() - START_TIME < DURATION do
+        task.wait(60)
+
+        if tick() - START_TIME >= DURATION then
+            break
+        end
+
+        pcall(function()
+            Net["Mailbox: Claim All"]:InvokeServer()
+        end)
+    end
+
+    print("Mailbox auto claim đã dừng sau 10 phút.")
+end)
