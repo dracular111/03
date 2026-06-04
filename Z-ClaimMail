@@ -2,7 +2,7 @@ task.spawn(function()
     local Net = game:GetService("ReplicatedStorage").Network
 
     -- Đợi game load ổn định
-    task.wait(15)
+    task.wait(120)
 
     -- Claim nhiều lần lúc mới vào
     for i = 1,5 do
