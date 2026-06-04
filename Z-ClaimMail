@@ -1,12 +1,12 @@
 task.spawn(function()
     local Net = game:GetService("ReplicatedStorage").Network
 
-    -- Thời gian hoạt động tối đa: 10 phút
+    -- Thời gian hoạt động tối đa: 5 phút
     local START_TIME = tick()
-    local DURATION = 600 -- 600 giây = 10 phút
+    local DURATION = 300
 
     -- Đợi game load ổn định
-    task.wait(15)
+    task.wait(60)
 
     -- Nếu đã quá thời gian thì thoát
     if tick() - START_TIME >= DURATION then
@@ -29,7 +29,7 @@ task.spawn(function()
 
     -- Sau đó claim định kỳ
     while tick() - START_TIME < DURATION do
-        task.wait(120)
+        task.wait(60)
 
         if tick() - START_TIME >= DURATION then
             break
