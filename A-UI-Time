@@ -16,7 +16,7 @@ end)
 task.wait(5)
 
 -- Cấu hình
-local TARGET_FPS = 5
+local TARGET_FPS = 3
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 
