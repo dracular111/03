@@ -1,4 +1,4 @@
-task.wait(1)
+task.wait(5)
 local Players = game:GetService("Players")
 
 -- ===== CẤU HÌNH =====
