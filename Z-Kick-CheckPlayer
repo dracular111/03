@@ -1,4 +1,4 @@
-task.wait(5)
+task.wait(1)
 local Players = game:GetService("Players")
 
 -- ===== CẤU HÌNH =====
@@ -34,7 +34,7 @@ local function Check()
 end
 
 -- Check khi script bắt đầu
-task.wait(10)
+task.wait(5)
 Check()
 
 -- Check khi có người mới vào
