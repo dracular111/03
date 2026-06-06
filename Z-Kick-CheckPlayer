@@ -1,0 +1,24 @@
+local Players = game:GetService("Players")
+
+local TARGET_PLACEID = 140403681187145
+
+local function Check()
+    if game.PlaceId ~= TARGET_PLACEID then
+        return
+    end
+
+    if #Players:GetPlayers() > 1 then
+        game.Players.LocalPlayer:Kick("Có người khác vào W4")
+    end
+end
+
+-- Check lúc script chạy
+task.wait(10)
+Check()
+
+-- Check khi có người mới vào
+Players.PlayerAdded:Connect(function(plr)
+    if plr ~= Players.LocalPlayer then
+        Check()
+    end
+end)
