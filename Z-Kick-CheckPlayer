@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 
 -- ===== CẤU HÌNH =====
 
-local CHECK_ALL_PLACES = true -- true = mọi world, false = chỉ PlaceId bên dưới
+local CHECK_ALL_PLACES = false -- true = mọi world, false = chỉ PlaceId bên dưới
 
 local TARGET_PLACEID = 140403681187145
 
