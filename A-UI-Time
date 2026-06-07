@@ -14,6 +14,7 @@ pcall(function()
     end
 end)
 task.wait(5)
+getgenv().FPS_START_TIME = getgenv().FPS_START_TIME or os.time()
 
 -- Cấu hình
 local TARGET_FPS = 4
@@ -114,7 +115,8 @@ local otherPlayers = math.max(#PlayersService:GetPlayers() - 1, 0)
 ServerPlayers.Text = "👤 " .. tostring(otherPlayers)
 
 
-local startTime = os.time()
+local startTime = getgenv().FPS_START_TIME
+
 task.spawn(function()
     while task.wait(1) do
         local elapsed = os.time() - startTime
@@ -124,6 +126,7 @@ task.spawn(function()
         Online.Text = string.format("%02d:%02d:%02d", h, m, s)
     end
 end)
+
 
 task.spawn(function()
     while task.wait(60) do
