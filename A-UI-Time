@@ -17,7 +17,7 @@ task.wait(5)
 getgenv().FPS_START_TIME = getgenv().FPS_START_TIME or os.time()
 
 -- Cấu hình
-local TARGET_FPS = 5
+local TARGET_FPS = 4
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 
