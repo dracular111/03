@@ -2,11 +2,8 @@ task.wait(5)
 local Players = game:GetService("Players")
 
 -- ===== CẤU HÌNH =====
-
-local CHECK_ALL_PLACES = false -- true = mọi world, false = chỉ PlaceId bên dưới
-
+local CHECK_ALL_PLACES = false
 local TARGET_PLACEID = 140403681187145
-
 -- ====================
 
 -- Bỏ qua từ 23:00 đến 23:59 giờ Việt Nam
@@ -17,29 +14,23 @@ local function IsExcludedHour()
 end
 
 local function Check()
-    -- Không kiểm tra trong khung giờ bỏ qua
     if IsExcludedHour() then
         return
     end
 
-    -- Chỉ kiểm tra PlaceId chỉ định
     if not CHECK_ALL_PLACES and game.PlaceId ~= TARGET_PLACEID then
         return
     end
 
-    -- Có người khác trong server
     if #Players:GetPlayers() > 1 then
         Players.LocalPlayer:Kick("Có người khác trong server")
     end
 end
 
--- Check khi script bắt đầu
-task.wait(5)
-Check()
-
--- Check khi có người mới vào
-Players.PlayerAdded:Connect(function(plr)
-    if plr ~= Players.LocalPlayer then
+-- Check mỗi 5 phút
+task.spawn(function()
+    while true do
+        task.wait(300)
         Check()
     end
 end)
